@@ -43,11 +43,6 @@ partial class LockForm
 		sourceFilesDialog = new OpenFileDialog();
 		sourceFilesGroup = new GroupBox();
 		sourceFilesGrid = new DataGridView();
-		sourcefileCol = new DataGridViewTextBoxColumn();
-		sourcefilePathCol = new DataGridViewTextBoxColumn();
-		lockFilenameCol = new DataGridViewTextBoxColumn();
-		selectedFilesCol = new DataGridViewCheckBoxColumn();
-		messageCol = new DataGridViewTextBoxColumn();
 		progressFilenameLabel = new Label();
 		authCodeTextBox = new TextBox();
 		qrCodePicture = new PictureBox();
@@ -55,6 +50,12 @@ partial class LockForm
 		thumbsPicture = new PictureBox();
 		reloadAuthCodeButton = new PictureBox();
 		authGeneratedAuthCodeTextBox = new TextBox();
+		messageLabel = new Label();
+		sourcefileCol = new DataGridViewTextBoxColumn();
+		sourcefilePathCol = new DataGridViewTextBoxColumn();
+		lockFilenameCol = new DataGridViewTextBoxColumn();
+		selectedFilesCol = new DataGridViewCheckBoxColumn();
+		messageCol = new DataGridViewTextBoxColumn();
 		sourceFilesGroup.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).BeginInit();
 		((System.ComponentModel.ISupportInitialize)qrCodePicture).BeginInit();
@@ -208,46 +209,6 @@ partial class LockForm
 		sourceFilesGrid.CellEndEdit += sourceFilesGrid_CellEndEdit;
 		sourceFilesGrid.CellValueChanged += sourceFilesGrid_CellValueChanged;
 		// 
-		// sourcefileCol
-		// 
-		sourcefileCol.HeaderText = "File Name";
-		sourcefileCol.MaxInputLength = 255;
-		sourcefileCol.MinimumWidth = 180;
-		sourcefileCol.Name = "sourcefileCol";
-		sourcefileCol.ReadOnly = true;
-		sourcefileCol.Width = 180;
-		// 
-		// sourcefilePathCol
-		// 
-		sourcefilePathCol.HeaderText = "Path";
-		sourcefilePathCol.MinimumWidth = 50;
-		sourcefilePathCol.Name = "sourcefilePathCol";
-		sourcefilePathCol.ReadOnly = true;
-		sourcefilePathCol.Width = 150;
-		// 
-		// lockFilenameCol
-		// 
-		lockFilenameCol.HeaderText = "Lock File Name";
-		lockFilenameCol.MinimumWidth = 200;
-		lockFilenameCol.Name = "lockFilenameCol";
-		lockFilenameCol.Width = 200;
-		// 
-		// selectedFilesCol
-		// 
-		selectedFilesCol.HeaderText = "✅";
-		selectedFilesCol.MinimumWidth = 30;
-		selectedFilesCol.Name = "selectedFilesCol";
-		selectedFilesCol.Resizable = DataGridViewTriState.False;
-		selectedFilesCol.SortMode = DataGridViewColumnSortMode.Automatic;
-		selectedFilesCol.Width = 30;
-		// 
-		// messageCol
-		// 
-		messageCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-		messageCol.HeaderText = "Message";
-		messageCol.Name = "messageCol";
-		messageCol.ReadOnly = true;
-		// 
 		// progressFilenameLabel
 		// 
 		progressFilenameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -339,6 +300,59 @@ partial class LockForm
 		authGeneratedAuthCodeTextBox.Text = "Auth Code";
 		authGeneratedAuthCodeTextBox.WordWrap = false;
 		// 
+		// messageLabel
+		// 
+		messageLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		messageLabel.BackColor = Color.Transparent;
+		messageLabel.ForeColor = Color.Red;
+		messageLabel.Location = new Point(12, 389);
+		messageLabel.Name = "messageLabel";
+		messageLabel.Size = new Size(502, 20);
+		messageLabel.TabIndex = 19;
+		messageLabel.TextAlign = ContentAlignment.MiddleLeft;
+		// 
+		// sourcefileCol
+		// 
+		sourcefileCol.HeaderText = "File Name";
+		sourcefileCol.MaxInputLength = 255;
+		sourcefileCol.MinimumWidth = 180;
+		sourcefileCol.Name = "sourcefileCol";
+		sourcefileCol.ReadOnly = true;
+		sourcefileCol.Width = 180;
+		// 
+		// sourcefilePathCol
+		// 
+		sourcefilePathCol.HeaderText = "Path";
+		sourcefilePathCol.MinimumWidth = 50;
+		sourcefilePathCol.Name = "sourcefilePathCol";
+		sourcefilePathCol.ReadOnly = true;
+		sourcefilePathCol.Width = 150;
+		// 
+		// lockFilenameCol
+		// 
+		lockFilenameCol.HeaderText = "Lock File Name";
+		lockFilenameCol.MinimumWidth = 200;
+		lockFilenameCol.Name = "lockFilenameCol";
+		lockFilenameCol.Width = 200;
+		// 
+		// selectedFilesCol
+		// 
+		selectedFilesCol.FalseValue = "false";
+		selectedFilesCol.HeaderText = "✅";
+		selectedFilesCol.MinimumWidth = 30;
+		selectedFilesCol.Name = "selectedFilesCol";
+		selectedFilesCol.Resizable = DataGridViewTriState.False;
+		selectedFilesCol.SortMode = DataGridViewColumnSortMode.Automatic;
+		selectedFilesCol.TrueValue = "true";
+		selectedFilesCol.Width = 30;
+		// 
+		// messageCol
+		// 
+		messageCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+		messageCol.HeaderText = "Message";
+		messageCol.Name = "messageCol";
+		messageCol.ReadOnly = true;
+		// 
 		// LockForm
 		// 
 		AcceptButton = lockFileButton;
@@ -346,6 +360,7 @@ partial class LockForm
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = cancelButton;
 		ClientSize = new Size(784, 421);
+		Controls.Add(messageLabel);
 		Controls.Add(authGeneratedAuthCodeTextBox);
 		Controls.Add(reloadAuthCodeButton);
 		Controls.Add(thumbsPicture);
@@ -401,11 +416,12 @@ partial class LockForm
 	private Button validateQrCodeButton;
 	private Label authGeneratedAuthCodeLabel;
 	private PictureBox thumbsPicture;
+	private PictureBox reloadAuthCodeButton;
+	private TextBox authGeneratedAuthCodeTextBox;
+	private Label messageLabel;
 	private DataGridViewTextBoxColumn sourcefileCol;
 	private DataGridViewTextBoxColumn sourcefilePathCol;
 	private DataGridViewTextBoxColumn lockFilenameCol;
 	private DataGridViewCheckBoxColumn selectedFilesCol;
 	private DataGridViewTextBoxColumn messageCol;
-	private PictureBox reloadAuthCodeButton;
-	private TextBox authGeneratedAuthCodeTextBox;
 }

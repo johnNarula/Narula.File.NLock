@@ -14,6 +14,7 @@ public partial class LockForm : Form
 	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
 	public string[] SourceFiles { get; set; } = Array.Empty<string>();
 	private const byte MAX_FAIL_ATTEMPTS = 5;
+	private byte _failedAttempts = 0;
 	private void LoadSourceFilesGrid(bool clearRows = true)
 	{
 		if (clearRows)
@@ -44,43 +45,55 @@ public partial class LockForm : Form
 	private void GenerateAuthQrCode()
 	{
 		ClearAuthQrCode();
-		if (SourceFiles.Length == 0)
+		var seclectedFileCount = GetNumberOfSelectedFiles();
+		if (SourceFiles.Length == 0 || seclectedFileCount == 0)
 		{
+			messageLabel.Text = "Please select at least 1 file to generate TOTP Code.";
 			return;
 		}
 
-		var label = string.Empty;
-		var issuerSuffix = string.Empty;
-		var selectedFilesCount = GetNumberOfSelectedFiles();
-		FileInfo fi = null;
-		if (selectedFilesCount == 0)
-			fi = new(SourceFiles[0]);
-		else
-			fi = new FileInfo(GetFirstOutputFilename() ?? string.Empty);
-
-
-		if (selectedFilesCount == 1)
+		var destinationDir = outputFolderTextBox.Text.Trim();
+		if(destinationDir.Length == 0 || !Directory.Exists(destinationDir))
 		{
-			label = fi.Name;
-			issuerSuffix = label;
-		}
-		else if (selectedFilesCount > 1)
-		{
-			label = fi.Directory.Name + "/*";
-			issuerSuffix = label;
+			messageLabel.Text = "Please select valid output directory to generate TOTP Code.";
+			return;
 		}
 
-		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecret();
-#if DEBUG
-		_authCodeInfo.TotpSecret = "46FKY3BVDN2FC53NWG76NMGLBFPXJ4WV";
-#endif
+		messageLabel.Text = string.Empty;
+
+		string issuer = string.Empty;
+		string label = string.Empty;
+
+		if (seclectedFileCount == 1)
+		{
+			FileInfo fi = new(GetFirstOutputFilename(true) ?? string.Empty);
+			issuer = $"{AppConstants.MFAIssuer} [{fi.Name}]";
+			label  = $"{AppConstants.MFAIssuer} [{fi.Name}]";
+		}
+		else if (seclectedFileCount > 1)
+		{
+			var dirName = Directory.GetParent(outputFolderTextBox.Text.Trim() + @"\_").Name;
+			issuer = $"{AppConstants.MFAIssuer} [{dirName}]";
+			label  = $"{AppConstants.MFAIssuer} [{dirName}]";
+		}
+
+		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecretBase32();
 		authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
-		_authCodeInfo.QrUri = TOTPService.GenerateTotpQrCodeUri(_authCodeInfo.TotpSecret, label, issuerSuffix);
+		
+		_authCodeInfo.QrUri = TOTPService.CreateTotpUri(_authCodeInfo.TotpSecret,
+														  issuer,
+														  label,
+														  AppConstants.TotpTimeStepSeconds,
+														  AppConstants.TotpCodeDigits);
 
-		using var qrGen = new QRCodeGenerator();
-		var qrData = qrGen.CreateQrCode(_authCodeInfo.QrUri, QRCodeGenerator.ECCLevel.Q);
-		qrCodePicture.Image = qrData.GetQrImage();
-		_authCodeInfo.QrImage = qrCodePicture.Image;
+		var qrCodePngBytes = TOTPService.CreatePngQrCodeBytes(_authCodeInfo.QrUri);
+		qrCodePicture.Image = _authCodeInfo.QrImage = PngBytesToImage(qrCodePngBytes);
+
+	}
+	private static Image PngBytesToImage(byte[] pngBytes)
+	{
+		using var ms = new MemoryStream(pngBytes);
+		return Image.FromStream(ms);
 	}
 	private void ClearAuthQrCode()
 	{
@@ -166,10 +179,7 @@ public partial class LockForm : Form
 	{
 		try
 		{
-			var checkedOutputs = sourceFilesGrid.Rows.Cast<DataGridViewRow>()
-						.Count(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true);
-
-			return checkedOutputs;
+			return GetSelectedGridViewRows().Count;
 		}
 		catch
 		{
@@ -242,6 +252,7 @@ public partial class LockForm : Form
 		{
 			SourceFiles = sourceFilesDialog.FileNames;
 			LoadSourceFilesGrid(true);
+			GenerateAuthQrCode();
 			lockFileButton.Enabled = ValidateReadiness();
 		}
 	}
@@ -291,22 +302,20 @@ public partial class LockForm : Form
 	}
 	private void RunLock()
 	{
-		var rowsToLlock = sourceFilesGrid.Rows.Cast<DataGridViewRow>()
-			.Where(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true)
-			.ToList();
+		List<DataGridViewRow> rowsToLock = GetSelectedGridViewRows();
 
-		progressBar.Maximum = rowsToLlock.Count;
+		progressBar.Maximum = rowsToLock.Count;
 		progressBar.Value = 0;
 		var outputFolder = outputFolderTextBox.Text.Trim();
 		FileUtility.EnsureDirectoryExists(outputFolder);
 
-		foreach (var row in rowsToLlock)
+		foreach (var row in rowsToLock)
 		{
 			var sourceFileName = row.Cells["sourcefileCol"].Value?.ToString() ?? string.Empty;
 			var sourceFilePath = row.Cells["sourcefilePathCol"].Value?.ToString() ?? string.Empty;
 			var unlockFileName = row.Cells["lockFilenameCol"].Value?.ToString() ?? string.Empty;
 			var fullSourceFilePath = Path.Combine(sourceFilePath, sourceFileName);
-			
+
 			var fullOutputFilePath = Path.Combine(outputFolder, unlockFileName);
 			try
 			{
@@ -319,7 +328,8 @@ public partial class LockForm : Form
 				//sleep for a short duration to allow UI to update
 				System.Threading.Thread.Sleep(100);
 
-				NLockInfo nlockInfo = new (){
+				NLockInfo nlockInfo = new()
+				{
 					SourceFile = fullSourceFilePath,
 					DestinationFile = fullOutputFilePath,
 					Password = password,
@@ -342,6 +352,12 @@ public partial class LockForm : Form
 			{
 			}
 		}
+	}
+	private List<DataGridViewRow> GetSelectedGridViewRows()
+	{
+		return sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+				.Where(row => row.Cells["selectedFilesCol"].Value == "true")
+				.ToList();
 	}
 	private void sourceFilesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 	{
@@ -368,7 +384,6 @@ public partial class LockForm : Form
 			}
 		}
 	}
-
 	private void authCodeTextBox_KeyDown(object sender, KeyEventArgs e)
 	{
 		// If Enter pressed and the Validate button is enabled, trigger its click.
@@ -387,7 +402,6 @@ public partial class LockForm : Form
 		// For all other keys, preserve existing numeric-only suppression logic.
 		e.SuppressKeyPress = IsNumeric(e.KeyCode);
 	}
-
 	public static bool IsNumeric(Keys key)
 	{
 		return (key is not (>= Keys.D0
@@ -399,8 +413,6 @@ public partial class LockForm : Form
 							or Keys.Left
 							or Keys.Right));
 	}
-
-	private byte _failedAttempts = 0;
 	private void validateQrCodeButton_Click(object sender, EventArgs e)
 	{
 		_authCodeInfo.Validated = false;
@@ -431,13 +443,11 @@ public partial class LockForm : Form
 		}
 		lockFileButton.Enabled = ValidateReadiness();
 	}
-
 	private void reloadAuthCodeButton_Click(object sender, EventArgs e)
 	{
 		GenerateAuthQrCode();
 		ValidateReadiness();
 	}
-
 	private void qrCodePicture_DoubleClick(object sender, EventArgs e)
 	{
 		ZoomedQrForm zoom = new(_authCodeInfo);

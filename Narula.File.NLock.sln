@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.CLI", "Na
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib", "Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj", "{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Narula.File.NLock.Setup", "Narula.File.NLock.Setup\Narula.File.NLock.Setup.vdproj", "{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,8 @@ Global
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Debug|Any CPU.ActiveCfg = Debug
+		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
