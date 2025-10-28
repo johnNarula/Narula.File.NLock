@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>NLock.Unlock</AssemblyName>
+    <StartupObject>Narula.File.NLock.Unlock.Program</StartupObject>
+    <RootNamespace>Narula.File.NLock</RootNamespace>
+    <ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+    <SignAssembly>False</SignAssembly>
+    <Title>Narula File Unlocking</Title>
+    <Authors>John Narula</Authors>
+    <Product>Narula.NLock</Product>
+    <Description>Narula File Lock/Unlock</Description>
+    <Copyright>(c) All Rights Reserved.</Copyright>
+    <PackageIcon>NLock.png</PackageIcon>
+    <PackageTags>NLock</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\NLock.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UnLockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\NLock.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

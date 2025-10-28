@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lock", "Narula.File.NLock.Lock\Narula.File.NLock.Lock.csproj", "{9D3C52C7-BA0F-4233-A2BD-D96D8A277626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Unlock", "Narula.File.NLock.Unlock\Narula.File.NLock.Unlock.csproj", "{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.CLI", "Narula.File.NLock.CLI\Narula.File.NLock.CLI.csproj", "{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib", "Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj", "{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D3C52C7-BA0F-4233-A2BD-D96D8A277626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D3C52C7-BA0F-4233-A2BD-D96D8A277626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D3C52C7-BA0F-4233-A2BD-D96D8A277626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D3C52C7-BA0F-4233-A2BD-D96D8A277626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C121C0A9-DE43-48EF-9E03-A69B2BEDD0B6}
+	EndGlobalSection
+EndGlobal

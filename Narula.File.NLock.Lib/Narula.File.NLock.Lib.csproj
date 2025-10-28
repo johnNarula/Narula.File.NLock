@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <AssemblyName>Narula.File.NLock.Lib</AssemblyName>
+	  <RootNamespace>Narula.File.NLock</RootNamespace>
+	  <ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+	  <SignAssembly>False</SignAssembly>
+	  <Title>Narula File Locking/Unlocking</Title>
+	  <Authors>John Narula</Authors>
+	  <Product>NLock</Product>
+	  <Description>Narula File Lock/Unlock</Description>
+	  <Copyright>(c) All Rights Reserved.</Copyright>
+	  <PackageIcon>NLock.png</PackageIcon>
+	  <PackageTags>NLock</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utilities\FileDecryptor.cs" />
+    <Compile Remove="Utilities\FileEncryptor.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Otp.NET" Version="1.4.0" />
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+	</ItemGroup>
+	
+</Project>

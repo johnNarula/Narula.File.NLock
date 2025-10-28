@@ -1,0 +1,461 @@
+﻿namespace Narula.File.NLock;
+public partial class LockForm : Form
+{
+	public LockForm()
+	{
+		InitializeComponent();
+	}
+	public LockForm(params string[] sourceFiles) : this()
+	{
+		this.SourceFiles = sourceFiles;
+	}
+
+	private AuthCodeInfo _authCodeInfo = new AuthCodeInfo();
+	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+	public string[] SourceFiles { get; set; } = Array.Empty<string>();
+	private const byte MAX_FAIL_ATTEMPTS = 5;
+	private void LoadSourceFilesGrid(bool clearRows = true)
+	{
+		if (clearRows)
+		{
+			sourceFilesGrid.Rows.Clear();
+		}
+
+		foreach (var file in SourceFiles)
+		{
+			var fi = new FileInfo(file);
+			var isNLockFile = fi.Extension.Equals(AppConstants.Extension, StringComparison.OrdinalIgnoreCase);
+			var lockFilename = GetTargetFileName(fi);
+
+			int rowIndex = sourceFilesGrid.Rows.Add();
+			sourceFilesGrid.Rows[rowIndex].Cells["sourcefileCol"].Value = fi.Name;
+			sourceFilesGrid.Rows[rowIndex].Cells["sourcefilePathCol"].Value = fi.DirectoryName;
+			sourceFilesGrid.Rows[rowIndex].Cells["messageCol"].Value = string.Empty;
+			sourceFilesGrid.Rows[rowIndex].Cells["lockFilenameCol"].Value = lockFilename;
+			sourceFilesGrid.Rows[rowIndex].Cells["selectedFilesCol"].Value = !isNLockFile;
+		}
+
+		UpdateOutputFolder();
+	}
+	private string GetTargetFileName(FileInfo fi)
+	{
+		return FileUtility.GetUniqueTargetFilenameInDirectory(fi.DirectoryName, fi.Name + AppConstants.Extension);
+	}
+	private void GenerateAuthQrCode()
+	{
+		ClearAuthQrCode();
+		if (SourceFiles.Length == 0)
+		{
+			return;
+		}
+
+		var label = string.Empty;
+		var issuerSuffix = string.Empty;
+		var selectedFilesCount = GetNumberOfSelectedFiles();
+		FileInfo fi = null;
+		if (selectedFilesCount == 0)
+			fi = new(SourceFiles[0]);
+		else
+			fi = new FileInfo(GetFirstOutputFilename() ?? string.Empty);
+
+
+		if (selectedFilesCount == 1)
+		{
+			label = fi.Name;
+			issuerSuffix = label;
+		}
+		else if (selectedFilesCount > 1)
+		{
+			label = fi.Directory.Name + "/*";
+			issuerSuffix = label;
+		}
+
+		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecret();
+#if DEBUG
+		_authCodeInfo.TotpSecret = "46FKY3BVDN2FC53NWG76NMGLBFPXJ4WV";
+#endif
+		authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
+		_authCodeInfo.QrUri = TOTPService.GenerateTotpQrCodeUri(_authCodeInfo.TotpSecret, label, issuerSuffix);
+
+		using var qrGen = new QRCodeGenerator();
+		var qrData = qrGen.CreateQrCode(_authCodeInfo.QrUri, QRCodeGenerator.ECCLevel.Q);
+		qrCodePicture.Image = qrData.GetQrImage();
+		_authCodeInfo.QrImage = qrCodePicture.Image;
+	}
+	private void ClearAuthQrCode()
+	{
+		_authCodeInfo.Validated = false;
+		thumbsPicture.Image = null;
+		qrCodePicture.Image = null;
+		authGeneratedAuthCodeTextBox.Clear();
+	}
+	private void UpdateOutputFolder()
+	{
+		if (string.IsNullOrWhiteSpace(outputFolderTextBox.Text) && SourceFiles.Length > 0)
+		{
+			var firstFile = GetFirstOutputFilename(true);
+			if (firstFile is null)
+			{
+				return;
+			}
+
+			var fi = new FileInfo(firstFile);
+			if (fi.DirectoryName != null)
+			{
+				outputFolderTextBox.Text = fi.DirectoryName;
+			}
+		}
+	}
+	private string? GetFirstOutputFilename(bool withPath = false)
+	{
+		//get lockFilenameCol value where first row where selectedFilesCol is checked
+		var firstRow = sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+			.FirstOrDefault(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true);
+		if (firstRow == null)
+			return null;
+
+		var outputFileName = firstRow.Cells["lockFilenameCol"].Value?.ToString().Trim() ?? string.Empty;
+		if (withPath)
+		{
+			var file = SourceFiles.FirstOrDefault();
+			if (!string.IsNullOrWhiteSpace(file))
+			{
+				var path = Path.GetDirectoryName(file) ?? string.Empty;
+				outputFileName = Path.Combine(path, outputFileName);
+			}
+		}
+		return outputFileName;
+	}
+	private void ValidateOutputFiles()
+	{
+		//change background color of lockFilenameCol cells to light red if the file already exists in the output folder
+		foreach (DataGridViewRow row in sourceFilesGrid.Rows)
+		{
+			var outputFileName = row.Cells["lockFilenameCol"].Value?.ToString() ?? string.Empty;
+			var outputFolder = outputFolderTextBox.Text;
+			if (string.IsNullOrWhiteSpace(outputFileName) || string.IsNullOrWhiteSpace(outputFolder))
+			{
+				row.Cells["lockFilenameCol"].Style.BackColor = System.Drawing.Color.White;
+				row.Cells["selectedFilesCol"].Value = false;
+				row.Cells["messageCol"].Value = string.Empty;
+				continue;
+			}
+
+			//should never happen, but...
+			if (row.Cells["selectedFilesCol"].ReadOnly == true)
+			{
+				row.Cells["lockFilenameCol"].Style.BackColor = System.Drawing.Color.LightGray;
+				row.Cells["messageCol"].Value = string.Empty;
+				continue;
+			}
+
+			var outputFilePath = Path.Combine(outputFolder, outputFileName);
+			if (System.IO.File.Exists(outputFilePath))
+			{
+				row.Cells["lockFilenameCol"].Style.BackColor = System.Drawing.Color.LightCoral;
+				row.Cells["selectedFilesCol"].Value = false;
+				row.Cells["messageCol"].Value = "Output file already exists. ";
+				continue;
+			}
+
+			row.Cells["lockFilenameCol"].Style.BackColor = System.Drawing.Color.White;
+		}
+
+	}
+	private int GetNumberOfSelectedFiles()
+	{
+		try
+		{
+			var checkedOutputs = sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+						.Count(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true);
+
+			return checkedOutputs;
+		}
+		catch
+		{
+			return 0;
+		}
+	}
+	private bool ValidateReadiness()
+	{
+		try
+		{
+			var anyChecked = sourceFilesGrid.RowCount > 0 && sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+						.Any(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true);
+
+			return (anyChecked == true
+				&& outputFolderTextBox.Text.Trim().Length > 0
+				&& passwordTextBox.Text.Trim().Length > 0
+				&& _authCodeInfo.AuthCode.Length == 6
+				&& _authCodeInfo.Validated == true);
+
+		}
+		catch
+		{
+			return false;
+		}
+		finally
+		{
+			//reset progressBar
+			progressBar.Value = 0;
+		}
+	}
+	private void LockAllControlsOnTheForm()
+	{
+		sourceFilesGrid.Enabled = false;
+		browseSourceButton.Enabled = false;
+		browseOutputFolderButton.Enabled = false;
+		outputFolderTextBox.Enabled = false;
+		passwordTextBox.Enabled = false;
+		authCodeTextBox.Enabled = false;
+		lockFileButton.Enabled = false;
+		cancelButton.Enabled = false;
+		validateQrCodeButton.Enabled = false;
+	}
+	private void UnLockAllControlsOnTheForm()
+	{
+		sourceFilesGrid.Enabled = true;
+		browseSourceButton.Enabled = true;
+		browseOutputFolderButton.Enabled = true;
+		outputFolderTextBox.Enabled = true;
+		passwordTextBox.Enabled = true;
+		authCodeTextBox.Enabled = true;
+		lockFileButton.Enabled = true;
+		cancelButton.Enabled = true;
+		validateQrCodeButton.Enabled = true;
+	}
+	private void browseOutputFolderButton_Click(object sender, EventArgs e)
+	{
+		var dir = outputFolderTextBox.Text.Trim();
+		if (dir.Length > 0 && Directory.Exists(dir))
+		{
+			outputFolderDialog.SelectedPath = dir;
+		}
+		if (outputFolderDialog.ShowDialog(this) == DialogResult.OK)
+		{
+			outputFolderTextBox.Text = outputFolderDialog.SelectedPath;
+		}
+	}
+	private void browseSourceButton_Click(object sender, EventArgs e)
+	{
+		if (sourceFilesDialog.ShowDialog(this) == DialogResult.OK)
+		{
+			SourceFiles = sourceFilesDialog.FileNames;
+			LoadSourceFilesGrid(true);
+			lockFileButton.Enabled = ValidateReadiness();
+		}
+	}
+	private void sourceFilesGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+	{
+		//ignore if cell is not in lockFilenameCol
+		if (e.ColumnIndex != sourceFilesGrid.Columns["lockFilenameCol"].Index)
+			return;
+		//uncheck the selectedFilesCol if value ends with ".nlock"
+		var cellValue = sourceFilesGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString().Trim() ?? string.Empty;
+		if (!cellValue.EndsWith(AppConstants.Extension, StringComparison.OrdinalIgnoreCase))
+		{
+			if (cellValue.Length > 0)
+				cellValue = cellValue.Trim() + AppConstants.Extension;
+			sourceFilesGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = cellValue;
+		}
+
+		sourceFilesGrid.Rows[e.RowIndex].Cells["selectedFilesCol"].Value = cellValue.Length > 0;
+		ValidateOutputFiles();
+	}
+	private void cancelButton_Click(object sender, EventArgs e)
+	{
+		this.Close();
+	}
+	private void lockFileButton_Click(object sender, EventArgs e)
+	{
+		if (string.IsNullOrEmpty(passwordTextBox.Text.Trim()) || string.IsNullOrEmpty(_authCodeInfo.AuthCode))
+		{
+			MessageBox.Show("Please enter your password and current Auth Code.");
+			return;
+		}
+
+		Directory.CreateDirectory(outputFolderTextBox.Text.Trim());
+		if (!Directory.Exists(outputFolderTextBox.Text.Trim()))
+		{
+			MessageBox.Show("Please select a valid output folder.");
+			return;
+		}
+		LockAllControlsOnTheForm();
+
+		RunLock();
+
+		progressFilenameLabel.Text = "";
+		UnLockAllControlsOnTheForm();
+		lockFileButton.Enabled = ValidateReadiness();
+
+	}
+	private void RunLock()
+	{
+		var rowsToLlock = sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+			.Where(row => Convert.ToBoolean(row.Cells["selectedFilesCol"].Value) == true)
+			.ToList();
+
+		progressBar.Maximum = rowsToLlock.Count;
+		progressBar.Value = 0;
+		var outputFolder = outputFolderTextBox.Text.Trim();
+		FileUtility.EnsureDirectoryExists(outputFolder);
+
+		foreach (var row in rowsToLlock)
+		{
+			var sourceFileName = row.Cells["sourcefileCol"].Value?.ToString() ?? string.Empty;
+			var sourceFilePath = row.Cells["sourcefilePathCol"].Value?.ToString() ?? string.Empty;
+			var unlockFileName = row.Cells["lockFilenameCol"].Value?.ToString() ?? string.Empty;
+			var fullSourceFilePath = Path.Combine(sourceFilePath, sourceFileName);
+			
+			var fullOutputFilePath = Path.Combine(outputFolder, unlockFileName);
+			try
+			{
+				var password = passwordTextBox.Text.Trim();
+
+				progressBar.Increment(1);
+				progressFilenameLabel.Text = $"Locking {sourceFileName} ...";
+				progressFilenameLabel.Update();
+
+				//sleep for a short duration to allow UI to update
+				System.Threading.Thread.Sleep(100);
+
+				NLockInfo nlockInfo = new (){
+					SourceFile = fullSourceFilePath,
+					DestinationFile = fullOutputFilePath,
+					Password = password,
+					TotpSecretCode = _authCodeInfo.TotpSecret
+				};
+				var result = NLockFile.TryLock(nlockInfo);
+				if (result.ResultCode == NLockProcessResultCode.Success)
+				{
+					row.Cells["messageCol"].Value = "Success";
+					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightGreen;
+				}
+				else
+				{
+					row.Cells["messageCol"].Value = result.Exception?.Message ?? result.ResultCode.ToString();
+					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightCoral;
+				}
+				row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.White;
+			}
+			catch
+			{
+			}
+		}
+	}
+	private void sourceFilesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+	{
+		lockFileButton.Enabled = ValidateReadiness();
+	}
+	private void LockForm_Load(object sender, EventArgs e)
+	{
+		LoadSourceFilesGrid(true);
+		GenerateAuthQrCode();
+		sourceFilesGrid.Update();
+		lockFileButton.Enabled = ValidateReadiness();
+	}
+	private void ValidateReadinessEvent(object sender, EventArgs e)
+	{
+		//_authCodeInfo.Validated = false;
+		_authCodeInfo.AuthCode = authCodeTextBox.Text.Trim();
+		lockFileButton.Enabled = ValidateReadiness();
+
+		if (sender == authCodeTextBox)
+		{
+			if (validateQrCodeButton.Enabled && _authCodeInfo.AuthCode.Length == 6)
+			{
+				validateQrCodeButton.PerformClick();
+			}
+		}
+	}
+
+	private void authCodeTextBox_KeyDown(object sender, KeyEventArgs e)
+	{
+		// If Enter pressed and the Validate button is enabled, trigger its click.
+		if (e.KeyCode == Keys.Enter)
+		{
+			if (validateQrCodeButton.Enabled)
+			{
+				validateQrCodeButton.PerformClick();
+			}
+			// Prevent the system ding and further processing
+			e.SuppressKeyPress = true;
+			e.Handled = true;
+			return;
+		}
+
+		// For all other keys, preserve existing numeric-only suppression logic.
+		e.SuppressKeyPress = IsNumeric(e.KeyCode);
+	}
+
+	public static bool IsNumeric(Keys key)
+	{
+		return (key is not (>= Keys.D0
+							and <= Keys.D9
+							or >= Keys.NumPad0
+							and <= Keys.NumPad9
+							or Keys.Back
+							or Keys.Tab
+							or Keys.Left
+							or Keys.Right));
+	}
+
+	private byte _failedAttempts = 0;
+	private void validateQrCodeButton_Click(object sender, EventArgs e)
+	{
+		_authCodeInfo.Validated = false;
+		if (string.IsNullOrWhiteSpace(_authCodeInfo.AuthCode))
+		{
+			MessageBox.Show("Please enter the 6-digit Auth code.");
+			return;
+		}
+
+		_authCodeInfo.Validated = TOTPService.ValidateAuthCode(_authCodeInfo.TotpSecret, _authCodeInfo.AuthCode);
+		if (_authCodeInfo.Validated)
+		{
+			thumbsPicture.Image = Resources.thumbsUpIcon;
+			_failedAttempts = 0;
+		}
+		else
+		{
+			thumbsPicture.Image = Resources.thumbsDownIcon;
+
+			authCodeTextBox.Clear();
+			_authCodeInfo.AuthCode = string.Empty;
+
+			if (++_failedAttempts >= MAX_FAIL_ATTEMPTS)
+			{
+				MessageBox.Show("Too many failed attempts. Exiting for security.");
+				Application.Exit();
+			}
+		}
+		lockFileButton.Enabled = ValidateReadiness();
+	}
+
+	private void reloadAuthCodeButton_Click(object sender, EventArgs e)
+	{
+		GenerateAuthQrCode();
+		ValidateReadiness();
+	}
+
+	private void qrCodePicture_DoubleClick(object sender, EventArgs e)
+	{
+		ZoomedQrForm zoom = new(_authCodeInfo);
+		zoom.ShowDialog(this);
+		if (authCodeTextBox.Text == _authCodeInfo.AuthCode && _authCodeInfo.Validated)
+		{
+			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
+		}
+		else if (authCodeTextBox.Text != _authCodeInfo.AuthCode && _authCodeInfo.Validated)
+		{
+			authCodeTextBox.Text = _authCodeInfo.AuthCode;
+			_authCodeInfo.Validated = true; //was reset in authCodeTextBox_TextChanged
+			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
+		}
+		else
+		{
+			thumbsPicture.Image = null;
+		}
+		lockFileButton.Enabled = ValidateReadiness();
+	}
+}
