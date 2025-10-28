@@ -49,7 +49,7 @@ partial class ZoomedQrForm
 		authGeneratedAuthCodeTextBox.ReadOnly = true;
 		authGeneratedAuthCodeTextBox.Size = new Size(338, 17);
 		authGeneratedAuthCodeTextBox.TabIndex = 0;
-		authGeneratedAuthCodeTextBox.Text = "-SXQDVK4TW4TXK7KD4LU7U3KVQIG2BG5Z-";
+		authGeneratedAuthCodeTextBox.Text = "-TOTP QR CODE-";
 		authGeneratedAuthCodeTextBox.TextAlign = HorizontalAlignment.Center;
 		authGeneratedAuthCodeTextBox.WordWrap = false;
 		// 
@@ -81,9 +81,10 @@ partial class ZoomedQrForm
 		// authCodeTextBox
 		// 
 		authCodeTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+		authCodeTextBox.BackColor = Color.FromArgb(255, 255, 192);
 		authCodeTextBox.BorderStyle = BorderStyle.FixedSingle;
 		authCodeTextBox.Font = new Font("OCR A Extended", 12F);
-		authCodeTextBox.ForeColor = Color.Red;
+		authCodeTextBox.ForeColor = Color.Green;
 		authCodeTextBox.Location = new Point(186, 405);
 		authCodeTextBox.MaxLength = 6;
 		authCodeTextBox.Name = "authCodeTextBox";

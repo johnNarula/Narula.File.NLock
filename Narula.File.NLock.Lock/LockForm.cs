@@ -1,4 +1,6 @@
-﻿namespace Narula.File.NLock;
+﻿using System.Collections.Generic;
+
+namespace Narula.File.NLock;
 public partial class LockForm : Form
 {
 	public LockForm()
@@ -53,7 +55,7 @@ public partial class LockForm : Form
 		}
 
 		var destinationDir = outputFolderTextBox.Text.Trim();
-		if(destinationDir.Length == 0 || !Directory.Exists(destinationDir))
+		if (destinationDir.Length == 0 || !Directory.Exists(destinationDir))
 		{
 			messageLabel.Text = "Please select valid output directory to generate TOTP Code.";
 			return;
@@ -61,20 +63,31 @@ public partial class LockForm : Form
 
 		messageLabel.Text = string.Empty;
 
-		string issuer = string.Empty;
-		string label = string.Empty;
+		EnsureQrTitleStartsWithNLock();
+		string issuer = qrTitleTextbox.Text; //do not trim here to preserve NLock: prefix spacing
+		string label = qrSubtitleTextbox.Text.Trim();
 
 		if (seclectedFileCount == 1)
 		{
-			FileInfo fi = new(GetFirstOutputFilename(true) ?? string.Empty);
-			issuer = $"{AppConstants.MFAIssuer} [{fi.Name}]";
-			label  = $"{AppConstants.MFAIssuer} [{fi.Name}]";
+			if (issuer.Length == AppConstants.QrTitlePrefix.Length)
+			{
+				FileInfo fi = new(GetFirstOutputFilename(true) ?? string.Empty);
+				qrTitleTextbox.Text = issuer = $"{AppConstants.QrTitlePrefix}[{fi.Name}]";
+			}
+			
+			if(label.Length == 0)
+				qrSubtitleTextbox.Text = label = issuer.Substring(AppConstants.QrTitlePrefix.Length);
 		}
 		else if (seclectedFileCount > 1)
 		{
-			var dirName = Directory.GetParent(outputFolderTextBox.Text.Trim() + @"\_").Name;
-			issuer = $"{AppConstants.MFAIssuer} [{dirName}]";
-			label  = $"{AppConstants.MFAIssuer} [{dirName}]";
+			if (issuer.Length == AppConstants.QrTitlePrefix.Length)
+			{
+				var dirName = Directory.GetParent(outputFolderTextBox.Text.Trim() + @"\_").Name;
+				qrTitleTextbox.Text = issuer = $"{AppConstants.QrTitlePrefix}[{dirName}]";
+			}
+
+			if (label.Length == 0)
+				qrSubtitleTextbox.Text = label = issuer.Substring(AppConstants.QrTitlePrefix.Length);
 		}
 
 		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecretBase32();
@@ -197,7 +210,9 @@ public partial class LockForm : Form
 				&& outputFolderTextBox.Text.Trim().Length > 0
 				&& passwordTextBox.Text.Trim().Length > 0
 				&& _authCodeInfo.AuthCode.Length == 6
-				&& _authCodeInfo.Validated == true);
+				&& _authCodeInfo.Validated == true
+				&& qrTitleTextbox.Text.StartsWith("NLock:", StringComparison.InvariantCulture)
+				&& qrSubtitleTextbox.Text.Trim().Length > 0);
 
 		}
 		catch
@@ -221,6 +236,8 @@ public partial class LockForm : Form
 		lockFileButton.Enabled = false;
 		cancelButton.Enabled = false;
 		validateQrCodeButton.Enabled = false;
+		qrTitleTextbox.Enabled = false;
+		qrSubtitleTextbox.Enabled = false;
 	}
 	private void UnLockAllControlsOnTheForm()
 	{
@@ -233,6 +250,8 @@ public partial class LockForm : Form
 		lockFileButton.Enabled = true;
 		cancelButton.Enabled = true;
 		validateQrCodeButton.Enabled = true;
+		qrTitleTextbox.Enabled = true;
+		qrSubtitleTextbox.Enabled = true;
 	}
 	private void browseOutputFolderButton_Click(object sender, EventArgs e)
 	{
@@ -355,9 +374,34 @@ public partial class LockForm : Form
 	}
 	private List<DataGridViewRow> GetSelectedGridViewRows()
 	{
-		return sourceFilesGrid.Rows.Cast<DataGridViewRow>()
-				.Where(row => row.Cells["selectedFilesCol"].Value == "true")
-				.ToList();
+		List<DataGridViewRow> rows = new();
+		foreach (DataGridViewRow row in sourceFilesGrid.Rows)
+		{
+			bool selected = false;
+			var cellValue = row.Cells["selectedFilesCol"].Value;
+			if (cellValue is bool b)
+			{
+				selected = b;
+			}
+			else if (cellValue is string s)
+			{
+				bool.TryParse(s, out selected);
+			}
+			else if (cellValue != null)
+			{
+				bool.TryParse(cellValue.ToString(), out selected);
+			}
+
+			if (selected)
+			{
+				rows.Add(row);
+			}
+		}
+
+		return rows;
+		//return sourceFilesGrid.Rows.Cast<DataGridViewRow>()
+		//		.Where(row => row.Cells["selectedFilesCol"].Value == "true")
+		//		.ToList();
 	}
 	private void sourceFilesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 	{
@@ -467,5 +511,18 @@ public partial class LockForm : Form
 			thumbsPicture.Image = null;
 		}
 		lockFileButton.Enabled = ValidateReadiness();
+	}
+	private void qrTitleTextbox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+	{
+		EnsureQrTitleStartsWithNLock();
+	}
+
+	private void EnsureQrTitleStartsWithNLock()
+	{
+		var txt = qrTitleTextbox.Text.Trim();
+		if (!txt.StartsWith(AppConstants.QrTitlePrefix, StringComparison.OrdinalIgnoreCase))
+		{
+			qrTitleTextbox.Text = AppConstants.QrTitlePrefix + txt;
+		}
 	}
 }

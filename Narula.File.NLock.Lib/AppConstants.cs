@@ -12,4 +12,5 @@ public static class AppConstants
 	public const int TotpTimeStepSeconds = 30; //30 seconds time step for TOTP
 	public const int TotpCodeDigits = 6;         // 6 digits for TOTP code
 	public const int PixelsPerModule = 20; // QR code scale factor
+	public const string QrTitlePrefix = MFAIssuer + ": "; // Prefix for QR code title
 }
