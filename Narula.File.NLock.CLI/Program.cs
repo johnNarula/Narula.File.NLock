@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 
 using Narula.File.NLock.Models;
 using Narula.File.NLock.Services;
+using Narula.File.NLock.Utilities;
 
 Console.WriteLine("Hello, World!");
 
@@ -36,9 +37,9 @@ while (true)
 	{
 		SourceFile = SRC_FILE,
 		DestinationFile = LOCKED_FILE,
-		Password = "TestPassword123!",
 		TotpSecretCode = TOTP_CODE
 	};
+	srcNFileInfo.SetPassword("TestPassword123!");
 
 	Console.WriteLine();
 	Console.WriteLine();
@@ -47,7 +48,7 @@ while (true)
 	Console.WriteLine(result.ResultCode.ToString());
 	if (result.ResultCode != NLockProcessResultCode.Success)
 	{
-		Console.WriteLine("Exception: " + result.Exception?.Message);
+		Console.WriteLine("Exception: " + SecureUtils.SanitizeExceptionMessage(result.Exception));
 		Console.WriteLine();
 		Console.WriteLine("Unable to continue.  Hit any key to close...");
 		Console.ReadKey();
@@ -58,9 +59,9 @@ while (true)
 	{
 		SourceFile = LOCKED_FILE,
 		DestinationFile = UNLOCKED_FILE,
-		Password = "TestPassword123!",
 		TotpAuthCode = authCode
 	};
+	lockedNFileInfo.SetPassword("TestPassword123!");
 
 	Console.WriteLine();
 	Console.WriteLine();
@@ -69,7 +70,7 @@ while (true)
 	Console.WriteLine(result.ResultCode.ToString());
 	if (result.ResultCode != NLockProcessResultCode.Success)
 	{
-		Console.WriteLine("Exception: " + result.Exception?.Message);
+		Console.WriteLine("Exception: " + SecureUtils.SanitizeExceptionMessage(result.Exception));
 		Console.WriteLine();
 		Console.WriteLine("Unable to continue.  Hit any key to close...");
 		Console.ReadKey();

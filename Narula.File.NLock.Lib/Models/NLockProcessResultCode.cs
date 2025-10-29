@@ -9,5 +9,9 @@ public enum NLockProcessResultCode
 	IncorrectTotpCode,
 	UnexpectedError,
 	UnableToReadFile,
-	UnableToWriteFile
+	UnableToWriteFile,
+	FileTooLarge,
+	RateLimited,
+	AccountLocked,
+	IntegrityCheckFailed
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ public static class NLockFile
 	public static NLockProcessResult TryLock(this NLockInfo nlockInfo)
 	{
 		NLockProcessResult result = new();
-		byte[] fileBytes = Array.Empty<byte>();
+		byte[]? fileBytes = null;
 		byte[] totpBytes = Array.Empty<byte>();
 		byte[] masterKey = Array.Empty<byte>();
 		byte[] passwordHash = Array.Empty<byte>();
@@ -22,11 +23,25 @@ public static class NLockFile
 		{
 			//1️ Prepare encryption parameters
 			salt = CryptoService.GenerateSalt();
-			passwordHash = CryptoService.HashPassword(nlockInfo.Password, salt);
-			masterKey = CryptoService.DeriveKey(nlockInfo.Password, salt);
+			var passwordString = nlockInfo.GetPasswordString();
+			try
+			{
+				passwordHash = CryptoService.HashPassword(passwordString, salt);
+				masterKey = CryptoService.DeriveKey(passwordString, salt);
+			}
+			finally
+			{
+				// Securely clear the temporary password string
+				SecureUtils.SecureClearString(ref passwordString);
+			}
 
-			//2️ Read file contents
-			fileBytes = System.IO.File.ReadAllBytes(nlockInfo.SourceFile);
+			//2️ Read file contents with size validation
+			fileBytes = FileUtility.ReadFileBytesSafely(nlockInfo.SourceFile);
+			if (fileBytes == null)
+			{
+				result.ResultCode = NLockProcessResultCode.FileTooLarge;
+				return result;
+			}
 
 			//3️ Encrypt file data (AES with explicit IV)
 			var (encryptedFile, iv1) = CryptoService.EncryptWithIv(fileBytes, masterKey);
@@ -35,7 +50,25 @@ public static class NLockFile
 			totpBytes = Encoding.ASCII.GetBytes(nlockInfo.TotpSecretCode.ToUpperInvariant());
 			var (encryptedTotp, iv2) = CryptoService.EncryptWithIv(totpBytes, masterKey);
 
-			//5️ Write all data to destination file
+			//5️ Generate HMAC for integrity verification
+			// Combine all data for HMAC: salt + passwordHash + iv1 + encryptedFile + iv2 + encryptedTotp
+			var hmacData = new byte[salt.Length + passwordHash.Length + iv1.Length + encryptedFile.Length + iv2.Length + encryptedTotp.Length];
+			var offset = 0;
+			Buffer.BlockCopy(salt, 0, hmacData, offset, salt.Length);
+			offset += salt.Length;
+			Buffer.BlockCopy(passwordHash, 0, hmacData, offset, passwordHash.Length);
+			offset += passwordHash.Length;
+			Buffer.BlockCopy(iv1, 0, hmacData, offset, iv1.Length);
+			offset += iv1.Length;
+			Buffer.BlockCopy(encryptedFile, 0, hmacData, offset, encryptedFile.Length);
+			offset += encryptedFile.Length;
+			Buffer.BlockCopy(iv2, 0, hmacData, offset, iv2.Length);
+			offset += iv2.Length;
+			Buffer.BlockCopy(encryptedTotp, 0, hmacData, offset, encryptedTotp.Length);
+			
+			var hmac = CryptoService.ComputeHmac(hmacData, masterKey);
+
+			//6️ Write all data to destination file
 			//Ensure Destination directory exists
 			FileUtility.EnsureDirectoryOfFileExists(nlockInfo.DestinationFile);
 			FileUtility.WriteEncryptedFile(nlockInfo.DestinationFile,
@@ -44,7 +77,8 @@ public static class NLockFile
 												encryptedFile,
 												encryptedTotp,
 												iv1,
-												iv2);
+												iv2,
+												hmac);
 
 			return result;
 		}
@@ -57,7 +91,7 @@ public static class NLockFile
 		finally
 		{
 			//Secure memory cleanup
-			SecureUtils.ClearBytes(fileBytes);
+			if (fileBytes != null) SecureUtils.ClearBytes(fileBytes);
 			SecureUtils.ClearBytes(masterKey);
 			SecureUtils.ClearBytes(totpBytes);
 			SecureUtils.ClearBytes(passwordHash);
@@ -79,56 +113,118 @@ public static class NLockFile
 		byte[] encryptedFile = Array.Empty<byte>();
 		byte[] encryptedTotp = Array.Empty<byte>();
 		byte[] totpSeedBytes = Array.Empty<byte>();
+		byte[] hmac = Array.Empty<byte>();
 		string totpSecret = string.Empty;
 
 		try
 		{
+			// Check rate limiting before processing
+			var identifier = Path.GetFileName(nlockInfo.SourceFile);
+			if (SecureUtils.IsRateLimited(identifier))
+			{
+				result.ResultCode = NLockProcessResultCode.AccountLocked;
+				return result;
+			}
+
+			if (SecureUtils.IsTooManyAttempts(identifier))
+			{
+				result.ResultCode = NLockProcessResultCode.RateLimited;
+				return result;
+			}
+
+			// Validate file size before processing
+			if (!FileUtility.ValidateFileSize(nlockInfo.SourceFile, out long fileSize))
+			{
+				result.ResultCode = NLockProcessResultCode.FileTooLarge;
+				return result;
+			}
+
 			if (!FileUtility.ReadEncryptedFile(nlockInfo.SourceFile,
 												out salt,
 												out storedHash,
 												out encryptedFile,
 												out encryptedTotp,
 												out iv1,
-												out iv2))
+												out iv2,
+												out hmac))
 			{
 				result.ResultCode = NLockProcessResultCode.InvalidFile;
 				return result;
 			}
 
-			var inputHash = CryptoService.HashPassword(nlockInfo.Password, salt);
-			if (!CompareHashes(storedHash, inputHash))
+			var passwordString = nlockInfo.GetPasswordString();
+			try
 			{
-				result.ResultCode = NLockProcessResultCode.IncorrectPassword;
+				var inputHash = CryptoService.HashPassword(passwordString, salt);
+				if (!CompareHashes(storedHash, inputHash))
+				{
+					SecureUtils.RecordFailedAttempt(identifier);
+					result.ResultCode = NLockProcessResultCode.IncorrectPassword;
+					return result;
+				}
+
+				var key = CryptoService.DeriveKey(passwordString, salt);
+
+				// Verify HMAC integrity before proceeding (only for new format files)
+				if (hmac.Length > 0)
+				{
+					var hmacData = new byte[salt.Length + storedHash.Length + iv1.Length + encryptedFile.Length + iv2.Length + encryptedTotp.Length];
+					var offset = 0;
+					Buffer.BlockCopy(salt, 0, hmacData, offset, salt.Length);
+					offset += salt.Length;
+					Buffer.BlockCopy(storedHash, 0, hmacData, offset, storedHash.Length);
+					offset += storedHash.Length;
+					Buffer.BlockCopy(iv1, 0, hmacData, offset, iv1.Length);
+					offset += iv1.Length;
+					Buffer.BlockCopy(encryptedFile, 0, hmacData, offset, encryptedFile.Length);
+					offset += encryptedFile.Length;
+					Buffer.BlockCopy(iv2, 0, hmacData, offset, iv2.Length);
+					offset += iv2.Length;
+					Buffer.BlockCopy(encryptedTotp, 0, hmacData, offset, encryptedTotp.Length);
+					
+					if (!CryptoService.VerifyHmac(hmacData, key, hmac))
+					{
+						result.ResultCode = NLockProcessResultCode.IntegrityCheckFailed;
+						return result;
+					}
+				}
+				// For old format files (hmac.Length == 0), skip HMAC verification for backward compatibility
+
+				// ✅ use the fixed API
+				totpSeedBytes = CryptoService.DecryptWithIv(encryptedTotp, key, iv2);
+				totpSecret = Encoding.ASCII.GetString(totpSeedBytes)
+					.ToUpperInvariant()
+					.Trim('\0', ' ', '\r', '\n');
+				totpSecret = GetTopSecret(totpSecret);
+
+				if (string.IsNullOrWhiteSpace(totpSecret))
+				{
+					result.ResultCode = NLockProcessResultCode.InvalidTotpCode;
+					return result;
+				}
+
+				if (!TOTPService.ValidateAuthCode(totpSecret, nlockInfo.TotpAuthCode))
+				{
+					SecureUtils.RecordFailedAttempt(identifier);
+					result.ResultCode = NLockProcessResultCode.IncorrectTotpCode;
+					return result;
+				}
+				
+				// Clear rate limiting on successful authentication
+				SecureUtils.ClearRateLimit(identifier);
+				
+				//System.IO.File.WriteAllBytes(outputFilePath, result.DataBytes);
+				result.DataBytes = CryptoService.DecryptWithIv(encryptedFile, key, iv1);
+				var saved = result.DataBytes.SaveFile(nlockInfo.DestinationFile);
+				result.ResultCode = (saved) ? NLockProcessResultCode.Success : NLockProcessResultCode.UnableToWriteFile;
+				
 				return result;
 			}
-
-			var key = CryptoService.DeriveKey(nlockInfo.Password, salt);
-
-			// ✅ use the fixed API
-			totpSeedBytes = CryptoService.DecryptWithIv(encryptedTotp, key, iv2);
-			totpSecret = Encoding.ASCII.GetString(totpSeedBytes)
-				.ToUpperInvariant()
-				.Trim('\0', ' ', '\r', '\n');
-			totpSecret = GetTopSecret(totpSecret);
-
-			if (string.IsNullOrWhiteSpace(totpSecret))
+			finally
 			{
-				result.ResultCode = NLockProcessResultCode.InvalidTotpCode;
-				return result;
+				// Securely clear the temporary password string
+				SecureUtils.SecureClearString(ref passwordString);
 			}
-
-			if (!TOTPService.ValidateAuthCode(totpSecret, nlockInfo.TotpAuthCode))
-			{
-				result.ResultCode = NLockProcessResultCode.IncorrectTotpCode;
-				return result;
-			}
-			
-			//System.IO.File.WriteAllBytes(outputFilePath, result.DataBytes);
-			result.DataBytes = CryptoService.DecryptWithIv(encryptedFile, key, iv1);
-			var saved = result.DataBytes.SaveFile(nlockInfo.DestinationFile);
-			result.ResultCode = (saved) ? NLockProcessResultCode.Success : NLockProcessResultCode.UnableToWriteFile;
-			
-			return result;
 		}
 		catch (Exception ex)
 		{
@@ -150,6 +246,7 @@ public static class NLockFile
 			SecureUtils.ClearBytes(encryptedFile);
 			SecureUtils.ClearBytes(encryptedTotp);
 			SecureUtils.ClearBytes(totpSeedBytes);
+			SecureUtils.ClearBytes(hmac);
 			SecureUtils.ClearString(ref totpSecret);
 		}
 	}
@@ -170,10 +267,7 @@ public static class NLockFile
 
 	private static bool CompareHashes(byte[] a, byte[] b)
 	{
-		if (a.Length != b.Length) return false;
-		bool same = true;
-		for (int i = 0; i < a.Length; i++) same &= (a[i] == b[i]);
-
-		return same;
+		// Use constant-time comparison to prevent timing attacks
+		return CryptographicOperations.FixedTimeEquals(a, b);
 	}
 }

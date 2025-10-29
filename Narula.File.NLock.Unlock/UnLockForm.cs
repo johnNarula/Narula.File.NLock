@@ -300,9 +300,9 @@ public partial class UnLockForm : Form
 				NLockInfo nlockInfo = new (){
 					SourceFile = fullSourceFilePath,
 					DestinationFile = fullOutputFilePath,
-					Password = password,
 					TotpAuthCode = totpCode
 				};
+				nlockInfo.SetPassword(password);
 				var result = NLockFile.TryUnlock(nlockInfo);
 				if (result.ResultCode == NLockProcessResultCode.Success)
 				{
@@ -311,7 +311,7 @@ public partial class UnLockForm : Form
 				}
 				else
 				{
-					row.Cells["messageCol"].Value = result.Exception?.Message ?? result.ResultCode.ToString();
+					row.Cells["messageCol"].Value = SecureUtils.SanitizeExceptionMessage(result.Exception, result.ResultCode.ToString());
 					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightCoral;
 				}
 				row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.White;

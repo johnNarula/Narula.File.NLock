@@ -60,4 +60,17 @@ public static class CryptoService
 
 		return msOut.ToArray();
 	}
+
+	// HMAC integrity verification
+	internal static byte[] ComputeHmac(byte[] data, byte[] key)
+	{
+		using var hmac = new HMACSHA256(key);
+		return hmac.ComputeHash(data);
+	}
+
+	internal static bool VerifyHmac(byte[] data, byte[] key, byte[] expectedHmac)
+	{
+		var computedHmac = ComputeHmac(data, key);
+		return CryptographicOperations.FixedTimeEquals(computedHmac, expectedHmac);
+	}
 }

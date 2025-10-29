@@ -351,9 +351,9 @@ public partial class LockForm : Form
 				{
 					SourceFile = fullSourceFilePath,
 					DestinationFile = fullOutputFilePath,
-					Password = password,
 					TotpSecretCode = _authCodeInfo.TotpSecret
 				};
+				nlockInfo.SetPassword(password);
 				var result = NLockFile.TryLock(nlockInfo);
 				if (result.ResultCode == NLockProcessResultCode.Success)
 				{
@@ -362,7 +362,7 @@ public partial class LockForm : Form
 				}
 				else
 				{
-					row.Cells["messageCol"].Value = result.Exception?.Message ?? result.ResultCode.ToString();
+					row.Cells["messageCol"].Value = SecureUtils.SanitizeExceptionMessage(result.Exception, result.ResultCode.ToString());
 					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightCoral;
 				}
 				row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.White;
