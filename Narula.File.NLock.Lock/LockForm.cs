@@ -399,9 +399,6 @@ public partial class LockForm : Form
 		}
 
 		return rows;
-		//return sourceFilesGrid.Rows.Cast<DataGridViewRow>()
-		//		.Where(row => row.Cells["selectedFilesCol"].Value == "true")
-		//		.ToList();
 	}
 	private void sourceFilesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 	{
