@@ -343,6 +343,125 @@
             {
                 "Keys"
                 {
+                "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_EXT_ROOT"
+                {
+                "Name" = "8:.nlock"
+                "Condition" = "8:"
+                "AlwaysCreate" = "11:TRUE"
+                "DeleteAtUninstall" = "11:TRUE"
+                "Transitive" = "11:FALSE"
+                    "Keys"
+                    {
+                    }
+                    "Values"
+                    {
+                        "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_NLOCK_EXT_PROGID"
+                        {
+                        "Name" = "8:"
+                        "Condition" = "8:"
+                        "Transitive" = "11:FALSE"
+                        "Value" = "8:NLock.EncryptedFile"
+                        }
+                    }
+                }
+                "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_PROGID_ROOT"
+                {
+                "Name" = "8:NLock.EncryptedFile"
+                "Condition" = "8:"
+                "AlwaysCreate" = "11:TRUE"
+                "DeleteAtUninstall" = "11:TRUE"
+                "Transitive" = "11:FALSE"
+                    "Keys"
+                    {
+                        "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_DEFAULTICON"
+                        {
+                        "Name" = "8:DefaultIcon"
+                        "Condition" = "8:"
+                        "AlwaysCreate" = "11:TRUE"
+                        "DeleteAtUninstall" = "11:TRUE"
+                        "Transitive" = "11:FALSE"
+                            "Keys"
+                            {
+                            }
+                            "Values"
+                            {
+                                "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_NLOCK_DEFAULTICON_VALUE"
+                                {
+                                "Name" = "8:"
+                                "Condition" = "8:"
+                                "Transitive" = "11:FALSE"
+                                "Value" = "8:[TARGETDIR]NLock.ico"
+                                }
+                            }
+                        }
+                        "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_SHELL"
+                        {
+                        "Name" = "8:shell"
+                        "Condition" = "8:"
+                        "AlwaysCreate" = "11:TRUE"
+                        "DeleteAtUninstall" = "11:TRUE"
+                        "Transitive" = "11:FALSE"
+                            "Keys"
+                            {
+                                "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_OPEN"
+                                {
+                                "Name" = "8:open"
+                                "Condition" = "8:"
+                                "AlwaysCreate" = "11:TRUE"
+                                "DeleteAtUninstall" = "11:TRUE"
+                                "Transitive" = "11:FALSE"
+                                    "Keys"
+                                    {
+                                        "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_NLOCK_OPEN_COMMAND"
+                                        {
+                                        "Name" = "8:command"
+                                        "Condition" = "8:"
+                                        "AlwaysCreate" = "11:TRUE"
+                                        "DeleteAtUninstall" = "11:TRUE"
+                                        "Transitive" = "11:FALSE"
+                                            "Keys"
+                                            {
+                                            }
+                                            "Values"
+                                            {
+                                                "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_NLOCK_OPEN_COMMAND_VALUE"
+                                                {
+                                                "Name" = "8:"
+                                                "Condition" = "8:"
+                                                "Transitive" = "11:FALSE"
+                                                "Value" = "8:\"[TARGETDIR]NLock.Lock.exe\" -f \"%1\""
+                                                }
+                                            }
+                                        }
+                                    }
+                                    "Values"
+                                    {
+                                        "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_NLOCK_OPEN_MUIVERB"
+                                        {
+                                        "Name" = "8:MUIVerb"
+                                        "Condition" = "8:"
+                                        "Transitive" = "11:FALSE"
+                                        "Value" = "8:Open"
+                                        }
+                                    }
+                                }
+                            }
+                            "Values"
+                            {
+                            }
+                        }
+                    }
+                    "Values"
+                    {
+                        "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_NLOCK_PROGID_FRIENDLY"
+                        {
+                        "Name" = "8:"
+                        "Condition" = "8:"
+                        "Transitive" = "11:FALSE"
+                        "Value" = "8:NLock Encrypted File"
+                        }
+                    }
+                }
                 }
             }
             "HKU"

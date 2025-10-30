@@ -1,4 +1,5 @@
 ﻿namespace Narula.File.NLock;
+using Narula.File.NLock.Models;
 public partial class UnLockForm : Form
 {
 	public UnLockForm()
@@ -9,10 +10,38 @@ public partial class UnLockForm : Form
 	{
 		this.SourceFiles = sourceFiles;
 	}
+	public UnLockForm(UnlockGuiLaunchRequest? launchRequest) : this()
+	{
+		_launchRequest = launchRequest;
+		var files = new List<string>();
+		if (launchRequest != null)
+		{
+			if (launchRequest.Files != null) files.AddRange(launchRequest.Files);
+			if (launchRequest.Directories != null)
+			{
+				foreach (var dir in launchRequest.Directories)
+				{
+					if (Directory.Exists(dir))
+					{
+						files.AddRange(Directory.GetFiles(dir, AppConstants.Extension, SearchOption.TopDirectoryOnly));
+					}
+				}
+			}
+
+			SourceFiles = files.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+			if (!string.IsNullOrWhiteSpace(launchRequest.OutputFolder))
+			{
+				try { outputFolderTextBox.Text = launchRequest.OutputFolder; } catch { }
+			}
+		}
+	}
 
 	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
 	public string[] SourceFiles { get; set; } = Array.Empty<string>();
+	private UnlockGuiLaunchRequest? _launchRequest;
 	private const byte MAX_FAIL_ATTEMPTS = 5;
+	private byte _failedAttempts = 0;
+
 	private void LoadSourceFilesGrid(bool clearRows = true)
 	{
 		if (clearRows)
@@ -30,7 +59,7 @@ public partial class UnLockForm : Form
 			sourceFilesGrid.Rows[rowIndex].Cells["sourcefileCol"].Value = fi.Name;
 			sourceFilesGrid.Rows[rowIndex].Cells["sourcefilePathCol"].Value = fi.DirectoryName;
 			sourceFilesGrid.Rows[rowIndex].Cells["messageCol"].Value = string.Empty;
-			
+
 			if (isNLockFile)
 			{
 				sourceFilesGrid.Rows[rowIndex].Cells["selectedFilesCol"].Value = true;
@@ -60,7 +89,7 @@ public partial class UnLockForm : Form
 		SourceFiles = SourceFiles.Where(f =>
 		{
 			var fi = new FileInfo(f);
-			if(fi.Extension.Equals(AppConstants.Extension, StringComparison.OrdinalIgnoreCase) 
+			if (fi.Extension.Equals(AppConstants.Extension, StringComparison.OrdinalIgnoreCase)
 				&& fi.Exists)
 			{
 				return true;
@@ -87,7 +116,7 @@ public partial class UnLockForm : Form
 			}
 		}
 	}
-	
+
 	private string? GetFirstOutputFilename(bool withPath = false)
 	{
 		//get unlockFilenameCol value where first row where selectedFilesCol is checked
@@ -136,7 +165,7 @@ public partial class UnLockForm : Form
 				row.Cells["messageCol"].Value = string.Empty;
 				continue;
 			}
-			
+
 			//should never happen, but...
 			if (row.Cells["selectedFilesCol"].ReadOnly == true)
 			{
@@ -277,13 +306,15 @@ public partial class UnLockForm : Form
 		var outputFolder = outputFolderTextBox.Text.Trim();
 		FileUtility.EnsureDirectoryExists(outputFolder);
 
+		bool failedDueToPasswordOrAuthCode = false;
+
 		foreach (var row in rowsToUnlock)
 		{
 			var sourceFileName = row.Cells["sourcefileCol"].Value?.ToString() ?? string.Empty;
 			var sourceFilePath = row.Cells["sourcefilePathCol"].Value?.ToString() ?? string.Empty;
 			var unlockFileName = row.Cells["unlockFilenameCol"].Value?.ToString() ?? string.Empty;
 			var fullSourceFilePath = Path.Combine(sourceFilePath, sourceFileName);
-			
+
 			var fullOutputFilePath = Path.Combine(outputFolder, unlockFileName);
 			try
 			{
@@ -297,7 +328,8 @@ public partial class UnLockForm : Form
 				//sleep for a short duration to allow UI to update
 				System.Threading.Thread.Sleep(100);
 
-				NLockInfo nlockInfo = new (){
+				NLockInfo nlockInfo = new()
+				{
 					SourceFile = fullSourceFilePath,
 					DestinationFile = fullOutputFilePath,
 					TotpAuthCode = totpCode
@@ -307,10 +339,14 @@ public partial class UnLockForm : Form
 				if (result.ResultCode == NLockProcessResultCode.Success)
 				{
 					row.Cells["messageCol"].Value = "Success";
-					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightGreen;					
+					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightGreen;
 				}
 				else
 				{
+					if (result.ResultCode is NLockProcessResultCode.IncorrectPassword or NLockProcessResultCode.InvalidTotpCode)
+					{
+						failedDueToPasswordOrAuthCode = true;
+					}
 					row.Cells["messageCol"].Value = SecureUtils.SanitizeExceptionMessage(result.Exception, result.ResultCode.ToString());
 					row.Cells["messageCol"].Style.BackColor = System.Drawing.Color.LightCoral;
 				}
@@ -319,8 +355,21 @@ public partial class UnLockForm : Form
 			catch
 			{
 			}
+			if (failedDueToPasswordOrAuthCode)
+				CheckAttempts(_failedAttempts++);
 		}
 	}
+
+	private void CheckAttempts(int _failedAttempts)
+	{
+		if (_failedAttempts >= MAX_FAIL_ATTEMPTS)
+		{
+			MessageBox.Show($"Maximum of {MAX_FAIL_ATTEMPTS} failed attempts due to password or auth code reached. The application will now close.");
+			Application.Exit();
+		}
+
+	}
+
 	private void sourceFilesGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 	{
 		unlockFileButton.Enabled = ValidateReadiness();
@@ -353,5 +402,13 @@ public partial class UnLockForm : Form
 							or Keys.Tab
 							or Keys.Left
 							or Keys.Right));
+	}
+
+	private void logo_Click(object sender, EventArgs e)
+	{
+		using(var aboutBox = new AboutBox())
+		{
+			aboutBox.ShowDialog(this);
+		}
 	}
 }

@@ -1,7 +1,10 @@
 ﻿namespace Narula.File.NLock;
 public static class AppConstants
 {
-	public const string MagicHeader = "NLockV2\x1A\x2B\0x21\x5E\x6F\x70\\!!"; // 16 bytes - longer and more random
+	// Obfuscated magic header - reconstructed at runtime
+	private static readonly byte[] _magicHeaderBytes = { 0x4E, 0x4C, 0x6F, 0x63, 0x6B, 0x56, 0x32, 0x1A, 0x2B, 0x21, 0x5E, 0x6F, 0x70, 0x5C, 0x21, 0x21 };
+	public static string MagicHeader => Encoding.ASCII.GetString(_magicHeaderBytes);
+	public const int MagicHeaderSize = 16;
 	public const string Extension = ".nlock";    // File extension for encrypted files
 	public const string MFAIssuer = "NLock";      // Issuer name for MFA
 	public const int SaltSize = 16;          // 16 bytes for salt

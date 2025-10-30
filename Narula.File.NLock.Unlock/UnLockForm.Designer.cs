@@ -50,8 +50,11 @@ partial class UnLockForm
 		messageCol = new DataGridViewTextBoxColumn();
 		progressFilenameLabel = new Label();
 		authCodeTextBox = new TextBox();
+		messageLabel = new Label();
+		logo = new PictureBox();
 		sourceFilesGroup.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).BeginInit();
+		((System.ComponentModel.ISupportInitialize)logo).BeginInit();
 		SuspendLayout();
 		// 
 		// cancelButton
@@ -80,9 +83,9 @@ partial class UnLockForm
 		// progressBar
 		// 
 		progressBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-		progressBar.Location = new Point(12, 301);
+		progressBar.Location = new Point(14, 301);
 		progressBar.Name = "progressBar";
-		progressBar.Size = new Size(760, 23);
+		progressBar.Size = new Size(758, 23);
 		progressBar.Style = ProgressBarStyle.Continuous;
 		progressBar.TabIndex = 8;
 		// 
@@ -111,6 +114,7 @@ partial class UnLockForm
 		// outputFolderTextBox
 		// 
 		outputFolderTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		outputFolderTextBox.BorderStyle = BorderStyle.FixedSingle;
 		outputFolderTextBox.Location = new Point(140, 213);
 		outputFolderTextBox.Name = "outputFolderTextBox";
 		outputFolderTextBox.Size = new Size(493, 23);
@@ -132,6 +136,7 @@ partial class UnLockForm
 		// 
 		passwordTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 		passwordTextBox.BackColor = Color.FromArgb(255, 192, 192);
+		passwordTextBox.BorderStyle = BorderStyle.FixedSingle;
 		passwordTextBox.Location = new Point(140, 242);
 		passwordTextBox.MaxLength = 50;
 		passwordTextBox.Name = "passwordTextBox";
@@ -243,15 +248,16 @@ partial class UnLockForm
 		// 
 		progressFilenameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 		progressFilenameLabel.BackColor = Color.Transparent;
-		progressFilenameLabel.Location = new Point(12, 327);
+		progressFilenameLabel.Location = new Point(14, 327);
 		progressFilenameLabel.Name = "progressFilenameLabel";
-		progressFilenameLabel.Size = new Size(760, 17);
+		progressFilenameLabel.Size = new Size(758, 17);
 		progressFilenameLabel.TabIndex = 9;
 		progressFilenameLabel.TextAlign = ContentAlignment.MiddleCenter;
 		// 
 		// authCodeTextBox
 		// 
 		authCodeTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+		authCodeTextBox.BorderStyle = BorderStyle.FixedSingle;
 		authCodeTextBox.Font = new Font("OCR A Extended", 12F);
 		authCodeTextBox.ForeColor = Color.Red;
 		authCodeTextBox.Location = new Point(140, 271);
@@ -263,6 +269,30 @@ partial class UnLockForm
 		authCodeTextBox.TextChanged += ValidateReadinessEvent;
 		authCodeTextBox.KeyDown += authCodeTextBox_KeyDown;
 		// 
+		// messageLabel
+		// 
+		messageLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		messageLabel.BackColor = Color.Transparent;
+		messageLabel.ForeColor = Color.Red;
+		messageLabel.Location = new Point(51, 348);
+		messageLabel.Name = "messageLabel";
+		messageLabel.Size = new Size(450, 20);
+		messageLabel.TabIndex = 17;
+		messageLabel.TextAlign = ContentAlignment.MiddleLeft;
+		// 
+		// logo
+		// 
+		logo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+		logo.BackColor = Color.Transparent;
+		logo.Image = Properties.Resources.NLock;
+		logo.Location = new Point(13, 338);
+		logo.Name = "logo";
+		logo.Size = new Size(32, 32);
+		logo.SizeMode = PictureBoxSizeMode.StretchImage;
+		logo.TabIndex = 18;
+		logo.TabStop = false;
+		logo.Click += logo_Click;
+		// 
 		// UnLockForm
 		// 
 		AcceptButton = unlockFileButton;
@@ -270,6 +300,8 @@ partial class UnLockForm
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = cancelButton;
 		ClientSize = new Size(784, 380);
+		Controls.Add(logo);
+		Controls.Add(messageLabel);
 		Controls.Add(authCodeTextBox);
 		Controls.Add(progressFilenameLabel);
 		Controls.Add(sourceFilesGroup);
@@ -289,6 +321,7 @@ partial class UnLockForm
 		Load += UnlockForm_Load;
 		sourceFilesGroup.ResumeLayout(false);
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).EndInit();
+		((System.ComponentModel.ISupportInitialize)logo).EndInit();
 		ResumeLayout(false);
 		PerformLayout();
 	}
@@ -316,4 +349,6 @@ partial class UnLockForm
 	private DataGridViewTextBoxColumn unlockFilenameCol;
 	private DataGridViewCheckBoxColumn selectedFilesCol;
 	private DataGridViewTextBoxColumn messageCol;
+	private Label messageLabel;
+	private PictureBox logo;
 }

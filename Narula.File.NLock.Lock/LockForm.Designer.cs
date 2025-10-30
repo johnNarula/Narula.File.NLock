@@ -60,11 +60,13 @@ partial class LockForm
 		label3 = new Label();
 		qrTitleTextbox = new TextBox();
 		qrSubtitleTextbox = new TextBox();
+		logo = new PictureBox();
 		sourceFilesGroup.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).BeginInit();
 		((System.ComponentModel.ISupportInitialize)qrCodePicture).BeginInit();
 		((System.ComponentModel.ISupportInitialize)thumbsPicture).BeginInit();
 		((System.ComponentModel.ISupportInitialize)reloadAuthCodeButton).BeginInit();
+		((System.ComponentModel.ISupportInitialize)logo).BeginInit();
 		SuspendLayout();
 		// 
 		// cancelButton
@@ -355,9 +357,9 @@ partial class LockForm
 		messageLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 		messageLabel.BackColor = Color.Transparent;
 		messageLabel.ForeColor = Color.Red;
-		messageLabel.Location = new Point(20, 389);
+		messageLabel.Location = new Point(58, 389);
 		messageLabel.Name = "messageLabel";
-		messageLabel.Size = new Size(484, 20);
+		messageLabel.Size = new Size(456, 20);
 		messageLabel.TabIndex = 16;
 		messageLabel.TextAlign = ContentAlignment.MiddleLeft;
 		// 
@@ -406,6 +408,19 @@ partial class LockForm
 		qrSubtitleTextbox.TabIndex = 11;
 		qrSubtitleTextbox.WordWrap = false;
 		// 
+		// logo
+		// 
+		logo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+		logo.BackColor = Color.Transparent;
+		logo.Image = Resources.NLock;
+		logo.Location = new Point(20, 379);
+		logo.Name = "logo";
+		logo.Size = new Size(32, 32);
+		logo.SizeMode = PictureBoxSizeMode.StretchImage;
+		logo.TabIndex = 19;
+		logo.TabStop = false;
+		logo.Click += logo_Click;
+		// 
 		// LockForm
 		// 
 		AcceptButton = lockFileButton;
@@ -413,6 +428,7 @@ partial class LockForm
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = cancelButton;
 		ClientSize = new Size(784, 421);
+		Controls.Add(logo);
 		Controls.Add(qrSubtitleTextbox);
 		Controls.Add(qrTitleTextbox);
 		Controls.Add(label3);
@@ -440,13 +456,13 @@ partial class LockForm
 		Name = "LockForm";
 		SizeGripStyle = SizeGripStyle.Show;
 		StartPosition = FormStartPosition.CenterScreen;
-		Text = "Lock File";
 		Load += LockForm_Load;
 		sourceFilesGroup.ResumeLayout(false);
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).EndInit();
 		((System.ComponentModel.ISupportInitialize)qrCodePicture).EndInit();
 		((System.ComponentModel.ISupportInitialize)thumbsPicture).EndInit();
 		((System.ComponentModel.ISupportInitialize)reloadAuthCodeButton).EndInit();
+		((System.ComponentModel.ISupportInitialize)logo).EndInit();
 		ResumeLayout(false);
 		PerformLayout();
 	}
@@ -485,4 +501,5 @@ partial class LockForm
 	private Label label3;
 	private TextBox qrTitleTextbox;
 	private TextBox qrSubtitleTextbox;
+	private PictureBox logo;
 }

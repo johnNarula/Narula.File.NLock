@@ -1,0 +1,13 @@
+<Project>
+  <!-- Global version properties for all projects -->
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <Product>NLock File Encryption</Product>
+    <Company>Narula</Company>
+    <Copyright>Copyright © Narula 2025</Copyright>
+    <Description>Secure file encryption with TOTP authentication</Description>
+  </PropertyGroup>
+</Project>

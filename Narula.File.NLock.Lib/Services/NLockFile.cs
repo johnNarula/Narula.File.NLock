@@ -12,6 +12,9 @@ public static class NLockFile
 {
 	public static NLockProcessResult TryLock(this NLockInfo nlockInfo)
 	{
+		// Anti-debugging protection
+		ObfuscationUtils.ExitIfDebugger();
+		
 		NLockProcessResult result = new();
 		byte[]? fileBytes = null;
 		byte[] totpBytes = Array.Empty<byte>();
@@ -101,6 +104,9 @@ public static class NLockFile
 
 	public static NLockProcessResult TryUnlock(this NLockInfo nlockInfo)
 	{
+		// Anti-debugging protection
+		ObfuscationUtils.ExitIfDebugger();
+		
 		NLockProcessResult result = new();
 		byte[] fileBytes = Array.Empty<byte>();
 		byte[] totpBytes = Array.Empty<byte>();

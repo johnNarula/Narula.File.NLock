@@ -13,11 +13,12 @@
 	<SignAssembly>False</SignAssembly>
 	<Title>Narula File Locking</Title>
 	<Authors>John Narula</Authors>
-	<Product>Narula.NLock</Product>
+	<Product>Narula NLock</Product>
 	<Description>Narula File Lock/Unlock</Description>
 	<Copyright>(c) All Rights Reserved.</Copyright>
 	<PackageIcon>NLock.png</PackageIcon>
 	<PackageTags>NLock</PackageTags>
+	
   </PropertyGroup>
 
 	<ItemGroup>

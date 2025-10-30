@@ -16,14 +16,28 @@
     <PackageIcon>NLock.png</PackageIcon>
     <PackageTags>NLock</PackageTags>
     <PackAsTool>True</PackAsTool>
+    
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="NLock-Description.txt" />
+    <None Remove="Readme.txt" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\NLock.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="NLock-Description.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Readme.txt" />
   </ItemGroup>
 
   <ItemGroup>

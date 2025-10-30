@@ -15,7 +15,7 @@ Commands:
 Options:
 	-h, --help				Show help information.
 	-v, --version			Show version information.
-	-f, --file				Specify the file(s) to lock or unlock.
+	-f, --file				Specify the file(s) to lock or unlock. For multiple files, separate each file with space. If the file path have space in them, use quations.
 	-d, --directory			Specify the directory containing files to lock or unlock.
 	-p, --password			Specify the password for locking or unlocking.
 	-c, --authcode			Specify the Auth code for locking.
@@ -25,6 +25,7 @@ Options:
 	-st --subtitle			Optional. Specify a subtitle for the Totp secret code. if not provided, same value as title will be used.
 	-f  --force				Optional. Force to lock .nlock even though they are already locked. (double-lock).
 	-o, --outputFolder		Optional. Specify the output directory to put processed files. If not provided, files will be processed in place.
+	/g, /gui				Optional. Launches the GUI interface.
 
 Examples:
 	Prepare to lock a file:
@@ -33,14 +34,17 @@ Examples:
 		nlock validate -t "JBSWY3DPEHPK3PXP" -c "123456"	//Validate the Auth. Returns true if valid, false if invalid.
 
 	Lock a file(s):
-		nlock lock  -p "mypassword" -t "JBSWY3DPEHPK3PXP" -f "c:\file.txt" [-o "c:\Temp"] [-t "My Title"] [-st "My Subtitle"] [-force]
+		nlock lock  -p "mypassword" -t "JBSWY3DPEHPK3PXP" -f c:\file1.txt "c:\file 2.txt" [-o "c:\Temp"] [-t "My Title"] [-st "My Subtitle"] [-force]
 		nlock lock  -p "mypassword" -t "JBSWY3DPEHPK3PXP" -d "c:\MyFolder" [-o "c:\Temp"] [-t "My Title"] [-st "My Subtitle"] [-force]
+		nlock lock  --p "mypassword" -t "JBSWY3DPEHPK3PXP" -d "c:\MyFolder" /gui
+		nlock lock /g
 
 	Unlock a file(s):
 		nlock unlock -p "mypassword" -c "123456" [-o "c:\Temp"] -f "c:\file.txt.nlock"
 		nlock unlock -p "mypassword" -c "123456" [-o "c:\Temp"] -d "c:\MyFolder"
+		nlock unlock /gui
 
-	Help:
+	Help:	
 		nlock help
 		nlock lock --help
 		nlock unlock --help

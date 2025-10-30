@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Narula.File.NLock.Models;
 
 namespace Narula.File.NLock;
 public partial class LockForm : Form
@@ -11,10 +12,36 @@ public partial class LockForm : Form
 	{
 		this.SourceFiles = sourceFiles;
 	}
+	public LockForm(LockGuiLaunchRequest? launchRequest) : this()
+	{
+		_launchRequest = launchRequest;
+		var files = new List<string>();
+
+		if (launchRequest != null)
+		{
+			if (launchRequest.Files != null) files.AddRange(launchRequest.Files);
+			if (launchRequest.Directories != null)
+			{
+				foreach (var dir in launchRequest.Directories)
+				{
+					if (Directory.Exists(dir))
+					{
+						files.AddRange(Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly));
+					}
+				}
+			}
+			SourceFiles = files.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+			if (!string.IsNullOrWhiteSpace(launchRequest.OutputFolder))
+			{
+				try { outputFolderTextBox.Text = launchRequest.OutputFolder; } catch { }
+			}
+		}
+	}
 
 	private AuthCodeInfo _authCodeInfo = new AuthCodeInfo();
 	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
 	public string[] SourceFiles { get; set; } = Array.Empty<string>();
+	LockGuiLaunchRequest? _launchRequest;
 	private const byte MAX_FAIL_ATTEMPTS = 5;
 	private byte _failedAttempts = 0;
 	private void LoadSourceFilesGrid(bool clearRows = true)
@@ -74,8 +101,8 @@ public partial class LockForm : Form
 				FileInfo fi = new(GetFirstOutputFilename(true) ?? string.Empty);
 				qrTitleTextbox.Text = issuer = $"{AppConstants.QrTitlePrefix}[{fi.Name}]";
 			}
-			
-			if(label.Length == 0)
+
+			if (label.Length == 0)
 				qrSubtitleTextbox.Text = label = issuer.Substring(AppConstants.QrTitlePrefix.Length);
 		}
 		else if (seclectedFileCount > 1)
@@ -92,7 +119,7 @@ public partial class LockForm : Form
 
 		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecretBase32();
 		authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
-		
+
 		_authCodeInfo.QrUri = TOTPService.CreateTotpUri(_authCodeInfo.TotpSecret,
 														  issuer,
 														  label,
@@ -520,6 +547,14 @@ public partial class LockForm : Form
 		if (!txt.StartsWith(AppConstants.QrTitlePrefix, StringComparison.OrdinalIgnoreCase))
 		{
 			qrTitleTextbox.Text = AppConstants.QrTitlePrefix + txt;
+		}
+	}
+
+	private void logo_Click(object sender, EventArgs e)
+	{
+		using (var aboutBox = new AboutBox())
+		{
+			aboutBox.ShowDialog(this);
 		}
 	}
 }
