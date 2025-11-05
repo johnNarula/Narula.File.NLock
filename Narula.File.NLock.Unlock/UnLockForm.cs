@@ -1,4 +1,6 @@
 ﻿namespace Narula.File.NLock;
+
+using Narula.File.NLock.Lib.UI;
 using Narula.File.NLock.Models;
 public partial class UnLockForm : Form
 {
@@ -39,8 +41,6 @@ public partial class UnLockForm : Form
 	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
 	public string[] SourceFiles { get; set; } = Array.Empty<string>();
 	private UnlockGuiLaunchRequest? _launchRequest;
-	private const byte MAX_FAIL_ATTEMPTS = 5;
-	private byte _failedAttempts = 0;
 
 	private void LoadSourceFilesGrid(bool clearRows = true)
 	{
@@ -356,15 +356,15 @@ public partial class UnLockForm : Form
 			{
 			}
 			if (failedDueToPasswordOrAuthCode)
-				CheckAttempts(_failedAttempts++);
+				CheckAttempts(AppConstants.FailedAttempts++);
 		}
 	}
 
-	private void CheckAttempts(int _failedAttempts)
+	private void CheckAttempts(int attempts)
 	{
-		if (_failedAttempts >= MAX_FAIL_ATTEMPTS)
+		if (attempts >= AppConstants.MAX_FAIL_ATTEMPTS)
 		{
-			MessageBox.Show($"Maximum of {MAX_FAIL_ATTEMPTS} failed attempts due to password or auth code reached. The application will now close.");
+			MessageBox.Show($"Maximum of {AppConstants.MAX_FAIL_ATTEMPTS} failed attempts due to password or auth code reached. The application will now close.");
 			Application.Exit();
 		}
 

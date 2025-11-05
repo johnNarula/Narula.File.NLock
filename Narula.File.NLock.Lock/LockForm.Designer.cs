@@ -28,6 +28,7 @@ partial class LockForm
 	/// </summary>
 	private void InitializeComponent()
 	{
+		components = new System.ComponentModel.Container();
 		var resources = new System.ComponentModel.ComponentResourceManager(typeof(LockForm));
 		cancelButton = new Button();
 		lockFileButton = new Button();
@@ -61,12 +62,18 @@ partial class LockForm
 		qrTitleTextbox = new TextBox();
 		qrSubtitleTextbox = new TextBox();
 		logo = new PictureBox();
+		toolTip = new ToolTip(components);
+		importantIcon = new PictureBox();
+		importSecretKeyIcon = new PictureBox();
+		label6 = new Label();
 		sourceFilesGroup.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)sourceFilesGrid).BeginInit();
 		((System.ComponentModel.ISupportInitialize)qrCodePicture).BeginInit();
 		((System.ComponentModel.ISupportInitialize)thumbsPicture).BeginInit();
 		((System.ComponentModel.ISupportInitialize)reloadAuthCodeButton).BeginInit();
 		((System.ComponentModel.ISupportInitialize)logo).BeginInit();
+		((System.ComponentModel.ISupportInitialize)importantIcon).BeginInit();
+		((System.ComponentModel.ISupportInitialize)importSecretKeyIcon).BeginInit();
 		SuspendLayout();
 		// 
 		// cancelButton
@@ -75,7 +82,7 @@ partial class LockForm
 		cancelButton.Location = new Point(520, 388);
 		cancelButton.Name = "cancelButton";
 		cancelButton.Size = new Size(120, 23);
-		cancelButton.TabIndex = 17;
+		cancelButton.TabIndex = 18;
 		cancelButton.Text = "&Cancel";
 		cancelButton.UseVisualStyleBackColor = true;
 		cancelButton.Click += cancelButton_Click;
@@ -87,7 +94,7 @@ partial class LockForm
 		lockFileButton.Location = new Point(646, 388);
 		lockFileButton.Name = "lockFileButton";
 		lockFileButton.Size = new Size(120, 23);
-		lockFileButton.TabIndex = 18;
+		lockFileButton.TabIndex = 19;
 		lockFileButton.Text = "&Lock File(s)";
 		lockFileButton.UseVisualStyleBackColor = true;
 		lockFileButton.Click += lockFileButton_Click;
@@ -99,7 +106,7 @@ partial class LockForm
 		progressBar.Name = "progressBar";
 		progressBar.Size = new Size(746, 23);
 		progressBar.Style = ProgressBarStyle.Continuous;
-		progressBar.TabIndex = 14;
+		progressBar.TabIndex = 15;
 		// 
 		// browseSourceButton
 		// 
@@ -266,7 +273,7 @@ partial class LockForm
 		progressFilenameLabel.Location = new Point(20, 368);
 		progressFilenameLabel.Name = "progressFilenameLabel";
 		progressFilenameLabel.Size = new Size(746, 17);
-		progressFilenameLabel.TabIndex = 15;
+		progressFilenameLabel.TabIndex = 16;
 		progressFilenameLabel.TextAlign = ContentAlignment.MiddleCenter;
 		// 
 		// authCodeTextBox
@@ -276,11 +283,12 @@ partial class LockForm
 		authCodeTextBox.BorderStyle = BorderStyle.FixedSingle;
 		authCodeTextBox.Font = new Font("OCR A Extended", 12F);
 		authCodeTextBox.ForeColor = Color.Green;
-		authCodeTextBox.Location = new Point(267, 313);
+		authCodeTextBox.Location = new Point(343, 314);
 		authCodeTextBox.MaxLength = 6;
 		authCodeTextBox.Name = "authCodeTextBox";
-		authCodeTextBox.Size = new Size(70, 24);
-		authCodeTextBox.TabIndex = 12;
+		authCodeTextBox.Size = new Size(221, 24);
+		authCodeTextBox.TabIndex = 13;
+		authCodeTextBox.TextAlign = HorizontalAlignment.Center;
 		authCodeTextBox.WordWrap = false;
 		authCodeTextBox.TextChanged += ValidateReadinessEvent;
 		authCodeTextBox.KeyDown += authCodeTextBox_KeyDown;
@@ -290,9 +298,9 @@ partial class LockForm
 		qrCodePicture.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		qrCodePicture.BackgroundImageLayout = ImageLayout.None;
 		qrCodePicture.BorderStyle = BorderStyle.FixedSingle;
-		qrCodePicture.Location = new Point(147, 222);
+		qrCodePicture.Location = new Point(147, 224);
 		qrCodePicture.Name = "qrCodePicture";
-		qrCodePicture.Size = new Size(114, 114);
+		qrCodePicture.Size = new Size(112, 112);
 		qrCodePicture.SizeMode = PictureBoxSizeMode.Zoom;
 		qrCodePicture.TabIndex = 14;
 		qrCodePicture.TabStop = false;
@@ -303,10 +311,10 @@ partial class LockForm
 		validateQrCodeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		validateQrCodeButton.BackColor = SystemColors.Control;
 		validateQrCodeButton.FlatStyle = FlatStyle.Flat;
-		validateQrCodeButton.Location = new Point(343, 313);
+		validateQrCodeButton.Location = new Point(570, 314);
 		validateQrCodeButton.Name = "validateQrCodeButton";
-		validateQrCodeButton.Size = new Size(70, 24);
-		validateQrCodeButton.TabIndex = 13;
+		validateQrCodeButton.Size = new Size(70, 23);
+		validateQrCodeButton.TabIndex = 14;
 		validateQrCodeButton.Text = "&Validate";
 		validateQrCodeButton.UseVisualStyleBackColor = false;
 		validateQrCodeButton.Click += validateQrCodeButton_Click;
@@ -317,7 +325,7 @@ partial class LockForm
 		thumbsPicture.BackColor = Color.Transparent;
 		thumbsPicture.BackgroundImageLayout = ImageLayout.None;
 		thumbsPicture.Image = Resources.thumbsUpIcon;
-		thumbsPicture.Location = new Point(419, 309);
+		thumbsPicture.Location = new Point(646, 305);
 		thumbsPicture.Name = "thumbsPicture";
 		thumbsPicture.Size = new Size(31, 31);
 		thumbsPicture.SizeMode = PictureBoxSizeMode.Zoom;
@@ -341,16 +349,20 @@ partial class LockForm
 		// authGeneratedAuthCodeTextBox
 		// 
 		authGeneratedAuthCodeTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-		authGeneratedAuthCodeTextBox.BackColor = SystemColors.Control;
-		authGeneratedAuthCodeTextBox.BorderStyle = BorderStyle.None;
+		authGeneratedAuthCodeTextBox.BackColor = SystemColors.Window;
+		authGeneratedAuthCodeTextBox.BorderStyle = BorderStyle.FixedSingle;
 		authGeneratedAuthCodeTextBox.Font = new Font("OCR A Extended", 12F);
-		authGeneratedAuthCodeTextBox.Location = new Point(267, 224);
+		authGeneratedAuthCodeTextBox.ForeColor = Color.Blue;
+		authGeneratedAuthCodeTextBox.Location = new Point(265, 224);
+		authGeneratedAuthCodeTextBox.MaxLength = 32;
 		authGeneratedAuthCodeTextBox.Name = "authGeneratedAuthCodeTextBox";
 		authGeneratedAuthCodeTextBox.ReadOnly = true;
-		authGeneratedAuthCodeTextBox.Size = new Size(499, 17);
+		authGeneratedAuthCodeTextBox.Size = new Size(375, 24);
 		authGeneratedAuthCodeTextBox.TabIndex = 7;
-		authGeneratedAuthCodeTextBox.Text = "Auth Code";
+		authGeneratedAuthCodeTextBox.Text = "Secret Key";
+		authGeneratedAuthCodeTextBox.TextAlign = HorizontalAlignment.Center;
 		authGeneratedAuthCodeTextBox.WordWrap = false;
+		authGeneratedAuthCodeTextBox.TextChanged += authGeneratedAuthCodeTextBox_TextChanged;
 		// 
 		// messageLabel
 		// 
@@ -360,7 +372,7 @@ partial class LockForm
 		messageLabel.Location = new Point(58, 389);
 		messageLabel.Name = "messageLabel";
 		messageLabel.Size = new Size(456, 20);
-		messageLabel.TabIndex = 16;
+		messageLabel.TabIndex = 17;
 		messageLabel.TextAlign = ContentAlignment.MiddleLeft;
 		// 
 		// label1
@@ -421,6 +433,50 @@ partial class LockForm
 		logo.TabStop = false;
 		logo.Click += logo_Click;
 		// 
+		// toolTip
+		// 
+		toolTip.ToolTipIcon = ToolTipIcon.Warning;
+		toolTip.ToolTipTitle = "Important";
+		// 
+		// importantIcon
+		// 
+		importantIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+		importantIcon.BackColor = Color.Transparent;
+		importantIcon.BackgroundImageLayout = ImageLayout.None;
+		importantIcon.Image = Resources.important32;
+		importantIcon.Location = new Point(646, 224);
+		importantIcon.Name = "importantIcon";
+		importantIcon.Size = new Size(24, 24);
+		importantIcon.SizeMode = PictureBoxSizeMode.Zoom;
+		importantIcon.TabIndex = 21;
+		importantIcon.TabStop = false;
+		toolTip.SetToolTip(importantIcon, resources.GetString("importantIcon.ToolTip"));
+		// 
+		// importSecretKeyIcon
+		// 
+		importSecretKeyIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+		importSecretKeyIcon.BackColor = Color.Transparent;
+		importSecretKeyIcon.BackgroundImageLayout = ImageLayout.None;
+		importSecretKeyIcon.Image = Resources.importSecretKey;
+		importSecretKeyIcon.Location = new Point(676, 224);
+		importSecretKeyIcon.Name = "importSecretKeyIcon";
+		importSecretKeyIcon.Size = new Size(24, 24);
+		importSecretKeyIcon.SizeMode = PictureBoxSizeMode.Zoom;
+		importSecretKeyIcon.TabIndex = 22;
+		importSecretKeyIcon.TabStop = false;
+		toolTip.SetToolTip(importSecretKeyIcon, "Use your own Secret Key");
+		importSecretKeyIcon.Click += importSecretKeyIcon_Click;
+		// 
+		// label6
+		// 
+		label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+		label6.Location = new Point(267, 314);
+		label6.Name = "label6";
+		label6.Size = new Size(70, 21);
+		label6.TabIndex = 12;
+		label6.Text = "Auth Code";
+		label6.TextAlign = ContentAlignment.MiddleRight;
+		// 
 		// LockForm
 		// 
 		AcceptButton = lockFileButton;
@@ -428,6 +484,9 @@ partial class LockForm
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = cancelButton;
 		ClientSize = new Size(784, 421);
+		Controls.Add(importSecretKeyIcon);
+		Controls.Add(importantIcon);
+		Controls.Add(label6);
 		Controls.Add(logo);
 		Controls.Add(qrSubtitleTextbox);
 		Controls.Add(qrTitleTextbox);
@@ -463,6 +522,8 @@ partial class LockForm
 		((System.ComponentModel.ISupportInitialize)thumbsPicture).EndInit();
 		((System.ComponentModel.ISupportInitialize)reloadAuthCodeButton).EndInit();
 		((System.ComponentModel.ISupportInitialize)logo).EndInit();
+		((System.ComponentModel.ISupportInitialize)importantIcon).EndInit();
+		((System.ComponentModel.ISupportInitialize)importSecretKeyIcon).EndInit();
 		ResumeLayout(false);
 		PerformLayout();
 	}
@@ -502,4 +563,8 @@ partial class LockForm
 	private TextBox qrTitleTextbox;
 	private TextBox qrSubtitleTextbox;
 	private PictureBox logo;
+	private ToolTip toolTip;
+	private Label label6;
+	private PictureBox importantIcon;
+	private PictureBox importSecretKeyIcon;
 }

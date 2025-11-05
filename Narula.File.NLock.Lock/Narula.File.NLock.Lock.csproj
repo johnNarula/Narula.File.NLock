@@ -13,7 +13,7 @@
 	<SignAssembly>False</SignAssembly>
 	<Title>Narula File Locking</Title>
 	<Authors>John Narula</Authors>
-	<Product>Narula NLock</Product>
+	<Product>Narula.NLock</Product>
 	<Description>Narula File Lock/Unlock</Description>
 	<Copyright>(c) All Rights Reserved.</Copyright>
 	<PackageIcon>NLock.png</PackageIcon>
@@ -21,11 +21,21 @@
 	
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="AboutBox.cs" />
+    <Compile Remove="AboutBox.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="AboutBox.resx" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<Content Include="Resources\NLock.ico" />
 	</ItemGroup>
 	
   <ItemGroup>
+    <ProjectReference Include="..\Narula.File.NLock.Lib.UI\Narula.File.NLock.Lib.UI.csproj" />
     <ProjectReference Include="..\Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj" />
   </ItemGroup>
 

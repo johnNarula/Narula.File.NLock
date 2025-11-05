@@ -70,14 +70,13 @@ public static class TOTPService
 	/// <returns>A constructed, encoded string Uri</returns>
 	public static string CreateTotpUri(string base32SecretKey, string issuer, string label,
 										int timeStepSeconds = AppConstants.TotpTimeStepSeconds,
-										int digits = AppConstants.TotpCodeDigits,
+										int digits = AppConstants.AuthCodeDigits,
 										TotpAlgorithm algorithm = TotpAlgorithm.SHA1)
 	{
+		/* Not using UrlEncode because it replaces space with + sign.
 		//label = HttpUtility.UrlEncode(label);
 		//issuer = HttpUtility.UrlEncode(issuer);
-		//* Not using UrlEncode because it replaces space with + sign.
-
-		//FORMAT: otpauth://totp/<Label>?secret=<Base32>&issuer=<Issuer>&algorithm=<SHA1|SHA256|SHA512>&digits=<6|7|8>&period=<seconds>
+		*/
 
 		string uri = $"otpauth://totp/{label}?secret={base32SecretKey}&issuer={issuer}&algorithm={algorithm.ToString()}&digits={digits}&period={timeStepSeconds}";
 		return uri;

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+
+using Narula.File.NLock.Lib.UI;
 using Narula.File.NLock.Models;
 
 namespace Narula.File.NLock;
@@ -42,8 +44,6 @@ public partial class LockForm : Form
 	[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
 	public string[] SourceFiles { get; set; } = Array.Empty<string>();
 	LockGuiLaunchRequest? _launchRequest;
-	private const byte MAX_FAIL_ATTEMPTS = 5;
-	private byte _failedAttempts = 0;
 	private void LoadSourceFilesGrid(bool clearRows = true)
 	{
 		if (clearRows)
@@ -75,14 +75,14 @@ public partial class LockForm : Form
 	{
 		ClearAuthQrCode();
 		var seclectedFileCount = GetNumberOfSelectedFiles();
-		if (SourceFiles.Length == 0 || seclectedFileCount == 0)
+		if ((SourceFiles.Length == 0 || seclectedFileCount == 0) && _secretKeyIsImported == false)
 		{
 			messageLabel.Text = "Please select at least 1 file to generate TOTP Code.";
 			return;
 		}
 
 		var destinationDir = outputFolderTextBox.Text.Trim();
-		if (destinationDir.Length == 0 || !Directory.Exists(destinationDir))
+		if ((destinationDir.Length == 0 || !Directory.Exists(destinationDir)) && _secretKeyIsImported == false)
 		{
 			messageLabel.Text = "Please select valid output directory to generate TOTP Code.";
 			return;
@@ -117,14 +117,15 @@ public partial class LockForm : Form
 				qrSubtitleTextbox.Text = label = issuer.Substring(AppConstants.QrTitlePrefix.Length);
 		}
 
-		_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecretBase32();
+		if(!_secretKeyIsImported)
+			_authCodeInfo.TotpSecret = TOTPService.GenerateTotpSecretBase32();
 		authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
 
 		_authCodeInfo.QrUri = TOTPService.CreateTotpUri(_authCodeInfo.TotpSecret,
 														  issuer,
 														  label,
 														  AppConstants.TotpTimeStepSeconds,
-														  AppConstants.TotpCodeDigits);
+														  AppConstants.AuthCodeDigits);
 
 		var qrCodePngBytes = TOTPService.CreatePngQrCodeBytes(_authCodeInfo.QrUri);
 		qrCodePicture.Image = _authCodeInfo.QrImage = PngBytesToImage(qrCodePngBytes);
@@ -484,7 +485,7 @@ public partial class LockForm : Form
 	private void validateQrCodeButton_Click(object sender, EventArgs e)
 	{
 		_authCodeInfo.Validated = false;
-		if (string.IsNullOrWhiteSpace(_authCodeInfo.AuthCode))
+		if (_authCodeInfo.AuthCode?.Trim().Length != AppConstants.AuthCodeDigits)
 		{
 			MessageBox.Show("Please enter the 6-digit Auth code.");
 			return;
@@ -494,7 +495,7 @@ public partial class LockForm : Form
 		if (_authCodeInfo.Validated)
 		{
 			thumbsPicture.Image = Resources.thumbsUpIcon;
-			_failedAttempts = 0;
+			AppConstants.FailedAttempts = 0;
 		}
 		else
 		{
@@ -502,8 +503,9 @@ public partial class LockForm : Form
 
 			authCodeTextBox.Clear();
 			_authCodeInfo.AuthCode = string.Empty;
+			_secretKeyIsImported = false;
 
-			if (++_failedAttempts >= MAX_FAIL_ATTEMPTS)
+			if (++AppConstants.FailedAttempts >= AppConstants.MAX_FAIL_ATTEMPTS)
 			{
 				MessageBox.Show("Too many failed attempts. Exiting for security.");
 				Application.Exit();
@@ -519,13 +521,15 @@ public partial class LockForm : Form
 	private void qrCodePicture_DoubleClick(object sender, EventArgs e)
 	{
 		ZoomedQrForm zoom = new(_authCodeInfo);
-		zoom.ShowDialog(this);
+		var buttonClicked = zoom.ShowDialog(this);
+
 		if (authCodeTextBox.Text == _authCodeInfo.AuthCode && _authCodeInfo.Validated)
 		{
 			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
 		}
 		else if (authCodeTextBox.Text != _authCodeInfo.AuthCode && _authCodeInfo.Validated)
 		{
+			authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
 			authCodeTextBox.Text = _authCodeInfo.AuthCode;
 			_authCodeInfo.Validated = true; //was reset in authCodeTextBox_TextChanged
 			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
@@ -544,9 +548,9 @@ public partial class LockForm : Form
 	private void EnsureQrTitleStartsWithNLock()
 	{
 		var txt = qrTitleTextbox.Text.Trim();
-		if (!txt.StartsWith(AppConstants.QrTitlePrefix, StringComparison.OrdinalIgnoreCase))
+		if (!txt.StartsWith(AppConstants.QrTitlePrefix.Trim(), StringComparison.OrdinalIgnoreCase))
 		{
-			qrTitleTextbox.Text = AppConstants.QrTitlePrefix + txt;
+			qrTitleTextbox.Text = (AppConstants.QrTitlePrefix + " ").Replace("  ", " ") + txt;
 		}
 	}
 
@@ -555,6 +559,31 @@ public partial class LockForm : Form
 		using (var aboutBox = new AboutBox())
 		{
 			aboutBox.ShowDialog(this);
+		}
+	}
+
+	private void authGeneratedAuthCodeTextBox_TextChanged(object sender, EventArgs e)
+	{
+		importantIcon.Visible = authGeneratedAuthCodeTextBox.Text.Trim().Length > 0;
+		importSecretKeyIcon.Left = (importantIcon.Visible) ? importantIcon.Left + 30 : importantIcon.Left;
+
+	}
+
+	bool _secretKeyIsImported = false;
+	private void importSecretKeyIcon_Click(object sender, EventArgs e)
+	{
+		var import = new ImportSecretKeyForm();
+		if (import.ShowDialog(this) == DialogResult.OK)
+		{
+			_secretKeyIsImported = true;
+			_authCodeInfo.TotpSecret = import.SecretKey;
+
+			GenerateAuthQrCode();
+			ValidateReadiness();
+		}
+		else
+		{
+			_secretKeyIsImported = false;
 		}
 	}
 }

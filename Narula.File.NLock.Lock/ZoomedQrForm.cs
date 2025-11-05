@@ -2,13 +2,12 @@
 public partial class ZoomedQrForm : Form
 {
 	public AuthCodeInfo _authCodeInfo = new();
-	private const byte MAX_FAIL_ATTEMPTS = 3;
-	public ZoomedQrForm() 
+	public ZoomedQrForm()
 	{
 		InitializeComponent();
-		
+
 	}
-	public ZoomedQrForm(AuthCodeInfo authCodeInfo): this()
+	public ZoomedQrForm(AuthCodeInfo authCodeInfo) : this()
 	{
 		_authCodeInfo = authCodeInfo;
 	}
@@ -41,7 +40,6 @@ public partial class ZoomedQrForm : Form
 		}
 	}
 
-	private byte _failedAttempts = 0;
 	private void validateQrCodeButton_Click(object sender, EventArgs e)
 	{
 		_authCodeInfo.Validated = false;
@@ -55,7 +53,7 @@ public partial class ZoomedQrForm : Form
 		if (_authCodeInfo.Validated)
 		{
 			thumbsPicture.Image = Resources.thumbsUpIcon;
-			_failedAttempts = 0;
+			AppConstants.FailedAttempts = 0;
 		}
 		else
 		{
@@ -64,11 +62,16 @@ public partial class ZoomedQrForm : Form
 			authCodeTextBox.Clear();
 			_authCodeInfo.AuthCode = string.Empty;
 
-			if (++_failedAttempts >= MAX_FAIL_ATTEMPTS)
+			if (++AppConstants.FailedAttempts >= AppConstants.MAX_FAIL_ATTEMPTS)
 			{
 				MessageBox.Show("Too many failed attempts. Exiting for security.");
 				Application.Exit();
 			}
 		}
+	}
+
+	private void authGeneratedAuthCodeTextBox_TextChanged(object sender, EventArgs e)
+	{
+		importantIcon.Visible = authGeneratedAuthCodeTextBox.Text.Trim().Length > 0;
 	}
 }
