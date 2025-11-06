@@ -5,6 +5,7 @@ using Narula.File.NLock.Services;
 using Narula.File.NLock.Utilities;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Reflection;
 
 namespace Narula.File.NLock.CLI;
 
@@ -385,7 +386,8 @@ class Program
         {
             switch (args[i].ToLowerInvariant())
             {
-                case "--title":
+				case "-tt":
+				case "--title":
                     if (i + 1 < args.Length)
                     {
                         title = args[++i];
@@ -489,6 +491,12 @@ class Program
 
     private static int ShowHelp()
     {
+        //Read the content of Readme.txt in the Resource. This file is embedded as resource.
+        //Console.WriteLine(Resource.Readme);
+        //return 0;
+
+
+
         Console.WriteLine("NLock - Secure file encryption with TOTP authentication");
         Console.WriteLine();
         Console.WriteLine("Usage:");
@@ -503,17 +511,17 @@ class Program
         Console.WriteLine("  contact     Display the developer's contact information");
         Console.WriteLine();
         Console.WriteLine("Options:");
-        Console.WriteLine("  -h, --help              Show help information");
-        Console.WriteLine("  -v, --version           Show version information");
-        Console.WriteLine("  -f, --file              Specify the file(s) to lock or unlock");
-        Console.WriteLine("  -d, --directory         Specify the directory containing files to lock or unlock");
-        Console.WriteLine("  -p, --password          Specify the password for locking or unlocking");
-        Console.WriteLine("  -c, --authcode          Specify the Auth code for unlocking");
-        Console.WriteLine("  -t, --totpcode          Specify the TOTP secret code for locking or validating");
-        Console.WriteLine("  --title                 Optional. Specify a title for the TOTP secret code");
+        Console.WriteLine("  -h,  --help              Show help information");
+        Console.WriteLine("  -v,  --version           Show version information");
+        Console.WriteLine("  -f,  --file              Specify the file(s) to lock or unlock");
+        Console.WriteLine("  -d,  --directory         Specify the directory containing files to lock or unlock");
+        Console.WriteLine("  -p,  --password          Specify the password for locking or unlocking");
+        Console.WriteLine("  -c,  --authcode          Specify the Auth code for unlocking");
+        Console.WriteLine("  -t,  --totpcode          Specify the TOTP secret code for locking or validating");
+        Console.WriteLine("  -tt  --title             Optional. Specify a title for the TOTP secret code");
         Console.WriteLine("  -st, --subtitle         Optional. Specify a subtitle for the TOTP secret code");
-        Console.WriteLine("  --force                 Optional. Force to lock .nlock files even though they are already locked");
-        Console.WriteLine("  -o, --outputFolder      Optional. Specify the output directory to put processed files");
+        Console.WriteLine("  -fr  --force                 Optional. Force to lock .nlock files even though they are already locked");
+        Console.WriteLine("  -o,  --outputFolder      Optional. Specify the output directory to put processed files");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  # Generate new TOTP secret");
@@ -521,10 +529,10 @@ class Program
         Console.WriteLine();
         Console.WriteLine("  # Lock a file");
         Console.WriteLine("  nlock lock -p \"mypassword\" -t \"JBSWY3DPEHPK3PXP\" -f \"file.txt\"");
-	Console.WriteLine();
+	    Console.WriteLine();
         Console.WriteLine("  # Unlock a file");
         Console.WriteLine("  nlock unlock -p \"mypassword\" -c \"123456\" -f \"file.txt.nlock\"");
-	Console.WriteLine();
+	    Console.WriteLine();
         Console.WriteLine("  # Validate auth code");
         Console.WriteLine("  nlock validate -t \"JBSWY3DPEHPK3PXP\" -c \"123456\"");
         
@@ -575,7 +583,8 @@ class Program
                 case "-o": case "--outputfolder":
                     if (i + 1 < args.Length) output = args[++i];
                     break;
-                case "--force":
+				case "--fr":
+				case "--force":
                     force = true; break;
             }
         }

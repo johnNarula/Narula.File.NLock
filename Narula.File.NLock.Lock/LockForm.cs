@@ -338,6 +338,12 @@ public partial class LockForm : Form
 			MessageBox.Show("Please select a valid output folder.");
 			return;
 		}
+
+		var tcForm = new TermsAndConditionAcceptForm();
+		var result = tcForm.ShowDialog(this);
+		if (result != DialogResult.OK)
+			return;
+
 		LockAllControlsOnTheForm();
 
 		RunLock();

@@ -13,19 +13,19 @@ Commands:
 	contact		Display the developer's contact information.
 
 Options:
-	-h, --help				Show help information.
-	-v, --version			Show version information.
-	-f, --file				Specify the file(s) to lock or unlock. For multiple files, separate each file with space. If the file path have space in them, use quations.
-	-d, --directory			Specify the directory containing files to lock or unlock.
-	-p, --password			Specify the password for locking or unlocking.
-	-c, --authcode			Specify the Auth code for locking.
-	-t, --totpcode			Specify the Totp secret code for unlocking or validating.
-	-n  --new				Request a new Totp secret code.
-	-t  --title				Optional. Specify a title for the Totp secret code. "NLock: " will be prefixed automatically.
-	-st --subtitle			Optional. Specify a subtitle for the Totp secret code. if not provided, same value as title will be used.
-	-f  --force				Optional. Force to lock .nlock even though they are already locked. (double-lock).
-	-o, --outputFolder		Optional. Specify the output directory to put processed files. If not provided, files will be processed in place.
-	/g, /gui				Optional. Launches the GUI interface.
+	-h,  --help           Show help information.
+	-v,  --version        Show version information.
+	-f,  --file           Specify the file(s) to lock or unlock. For multiple files, separate each file with space. If the file path have space in them, use quations.
+	-d,  --directory      Specify the directory containing files to lock or unlock.
+	-p,  --password       Specify the password for locking or unlocking.
+	-c,  --authcode       Specify the Auth code for locking.
+	-t,  --totpcode       Specify the Totp secret code for unlocking or validating.
+	-n   --new            Request a new Totp secret code.
+	-tt  --title          Optional. Specify a title for the Totp secret code. "NLock: " will be prefixed automatically.
+	-st  --subtitle       Optional. Specify a subtitle for the Totp secret code. if not provided, same value as title will be used.
+	-fr  --force          Optional. Force to lock .nlock even though they are already locked. (double-lock).
+	-o,  --outputFolder   Optional. Specify the output directory to put processed files. If not provided, files will be processed in place.
+	-g,  --gui            Optional. Launches the GUI interface.
 
 Examples:
 	Prepare to lock a file:

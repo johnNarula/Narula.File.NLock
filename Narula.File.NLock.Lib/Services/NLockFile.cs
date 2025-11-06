@@ -12,18 +12,20 @@ public static class NLockFile
 {
 	public static NLockProcessResult TryLock(this NLockInfo nlockInfo)
 	{
-		// Anti-debugging protection
-		ObfuscationUtils.ExitIfDebugger();
-		
 		NLockProcessResult result = new();
 		byte[]? fileBytes = null;
-		byte[] totpBytes = Array.Empty<byte>();
-		byte[] masterKey = Array.Empty<byte>();
-		byte[] passwordHash = Array.Empty<byte>();
-		byte[] salt = Array.Empty<byte>();
+		byte[] totpBytes = [];
+		byte[] masterKey = [];
+		byte[] passwordHash = [];
+		byte[] salt = [];
 
 		try
 		{
+			// Anti-debugging protection
+#if !DEBUG
+			ObfuscationUtils.ExitIfDebugger();
+#endif
+
 			//1️ Prepare encryption parameters
 			salt = CryptoService.GenerateSalt();
 			var passwordString = nlockInfo.GetPasswordString();
@@ -32,9 +34,14 @@ public static class NLockFile
 				passwordHash = CryptoService.HashPassword(passwordString, salt);
 				masterKey = CryptoService.DeriveKey(passwordString, salt);
 			}
+			catch(Exception ex0)
+			{
+				result.Exception = ex0;
+				result.ResultCode = NLockProcessResultCode.UnexpectedError;
+				return result;
+			}
 			finally
 			{
-				// Securely clear the temporary password string
 				SecureUtils.SecureClearString(ref passwordString);
 			}
 
