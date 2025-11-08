@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>NLock.Unlock.exe</AssemblyName>
+    <AssemblyName>NLock.Unlock</AssemblyName>
     <StartupObject>Narula.File.NLock.Unlock.Program</StartupObject>
     <RootNamespace>Narula.File.NLock</RootNamespace>
     <ApplicationIcon>NLock-Unlock_nobg.ico</ApplicationIcon>

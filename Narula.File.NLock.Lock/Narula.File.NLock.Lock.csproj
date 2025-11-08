@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>NLock.Lock.exe</AssemblyName>
+    <AssemblyName>NLock.Lock</AssemblyName>
     <StartupObject>Narula.File.NLock.Lock.Program</StartupObject>
 	<RootNamespace>Narula.File.NLock</RootNamespace>
 	<ApplicationIcon>NLock-Lock_nobg.ico</ApplicationIcon>
