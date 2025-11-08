@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Narula.File.NLock.Lib.UI;
+
 namespace Narula.File.NLock;
 public partial class ImportSecretKeyForm : Form
 {
 	public ImportSecretKeyForm()
 	{
 		InitializeComponent();
+		//this.Icon = NLockResx.NLock_Lock_nobg_Icon;
 	}
 	bool _validated = false;
 

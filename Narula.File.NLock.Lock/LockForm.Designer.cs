@@ -424,7 +424,6 @@ partial class LockForm
 		// 
 		logo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		logo.BackColor = Color.Transparent;
-		logo.Image = Resources.NLock;
 		logo.Location = new Point(20, 379);
 		logo.Name = "logo";
 		logo.Size = new Size(32, 32);

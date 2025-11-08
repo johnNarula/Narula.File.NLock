@@ -11,14 +11,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.CLI", "Na
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib", "Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj", "{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Narula.File.NLock.Setup", "Narula.File.NLock.Setup\Narula.File.NLock.Setup.vdproj", "{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Solution Items\build-native-forms.ps1 = Solution Items\build-native-forms.ps1
+		Solution Items\build-native.bat = Solution Items\build-native.bat
+		Solution Items\build-native.ps1 = Solution Items\build-native.ps1
+		Solution Items\Directory.Build.props = Solution Items\Directory.Build.props
+		Solution Items\install-nfile.bat = Solution Items\install-nfile.bat
+		Solution Items\install-readme.md = Solution Items\install-readme.md
+		Solution Items\Nlock Registry Readme.pdf = Solution Items\Nlock Registry Readme.pdf
+		Solution Items\REVERSE_ENGINEERING_PROTECTION.md = Solution Items\REVERSE_ENGINEERING_PROTECTION.md
+		Solution Items\uninstall-nfile.bat = Solution Items\uninstall-nfile.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib.UI", "Narula.File.NLock.Lib.UI\Narula.File.NLock.Lib.UI.csproj", "{2EDA81F9-9A4D-4715-A32F-57165E326642}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Narula.File.NLock.Setup", "Narula.File.NLock.Setup\Narula.File.NLock.Setup.vdproj", "{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +51,12 @@ Global
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Debug|Any CPU.ActiveCfg = Debug
-		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Release|Any CPU.ActiveCfg = Release
 		{2EDA81F9-9A4D-4715-A32F-57165E326642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2EDA81F9-9A4D-4715-A32F-57165E326642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EDA81F9-9A4D-4715-A32F-57165E326642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EDA81F9-9A4D-4715-A32F-57165E326642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Debug|Any CPU.ActiveCfg = Debug
+		{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

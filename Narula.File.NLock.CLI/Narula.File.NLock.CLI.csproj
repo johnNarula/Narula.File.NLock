@@ -8,7 +8,7 @@
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
     <AssemblyName>NLock</AssemblyName>
-    <ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+    <ApplicationIcon>NLock.ico</ApplicationIcon>
     <Title>Narula File Lock/Unlock</Title>
     <Authors>John Narula</Authors>
     <Description>Narula File Lock/Unlock</Description>
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\NLock.ico" />
+    <Content Include="NLock.ico" />
   </ItemGroup>
 
   <ItemGroup>

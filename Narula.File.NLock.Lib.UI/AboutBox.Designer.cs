@@ -36,18 +36,17 @@ partial class AboutBox
 		textBoxDescription = new TextBox();
 		okButton = new Button();
 		lblContact = new Label();
-		pictureBox1 = new PictureBox();
+		tipQr = new PictureBox();
 		tipJar = new PictureBox();
 		label1 = new Label();
 		((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
-		((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+		((System.ComponentModel.ISupportInitialize)tipQr).BeginInit();
 		((System.ComponentModel.ISupportInitialize)tipJar).BeginInit();
 		SuspendLayout();
 		// 
 		// logoPictureBox
 		// 
 		logoPictureBox.BackColor = Color.Transparent;
-		logoPictureBox.Image = Properties.Resources.NLock;
 		logoPictureBox.Location = new Point(14, 13);
 		logoPictureBox.Margin = new Padding(4, 3, 4, 3);
 		logoPictureBox.Name = "logoPictureBox";
@@ -134,22 +133,20 @@ partial class AboutBox
 		lblContact.Text = "Contact";
 		lblContact.TextAlign = ContentAlignment.MiddleLeft;
 		// 
-		// pictureBox1
+		// tipQr
 		// 
-		pictureBox1.BackColor = Color.Transparent;
-		pictureBox1.Image = Properties.Resources.nLockTipJar;
-		pictureBox1.Location = new Point(14, 222);
-		pictureBox1.Margin = new Padding(4, 3, 4, 3);
-		pictureBox1.Name = "pictureBox1";
-		pictureBox1.Size = new Size(180, 180);
-		pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-		pictureBox1.TabIndex = 33;
-		pictureBox1.TabStop = false;
+		tipQr.BackColor = Color.Transparent;
+		tipQr.Location = new Point(14, 222);
+		tipQr.Margin = new Padding(4, 3, 4, 3);
+		tipQr.Name = "tipQr";
+		tipQr.Size = new Size(180, 180);
+		tipQr.SizeMode = PictureBoxSizeMode.StretchImage;
+		tipQr.TabIndex = 33;
+		tipQr.TabStop = false;
 		// 
 		// tipJar
 		// 
 		tipJar.BackColor = Color.Transparent;
-		tipJar.Image = Properties.Resources.NLockTipMeQR;
 		tipJar.Location = new Point(202, 222);
 		tipJar.Margin = new Padding(4, 3, 4, 3);
 		tipJar.Name = "tipJar";
@@ -176,7 +173,7 @@ partial class AboutBox
 		ClientSize = new Size(507, 414);
 		Controls.Add(label1);
 		Controls.Add(tipJar);
-		Controls.Add(pictureBox1);
+		Controls.Add(tipQr);
 		Controls.Add(lblContact);
 		Controls.Add(logoPictureBox);
 		Controls.Add(labelProductName);
@@ -195,7 +192,7 @@ partial class AboutBox
 		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
-		((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+		((System.ComponentModel.ISupportInitialize)tipQr).EndInit();
 		((System.ComponentModel.ISupportInitialize)tipJar).EndInit();
 		ResumeLayout(false);
 		PerformLayout();
@@ -212,7 +209,7 @@ partial class AboutBox
 	private TextBox textBoxDescription;
 	private Button okButton;
 	private Label lblContact;
-	private PictureBox pictureBox1;
+	private PictureBox tipQr;
 	private PictureBox tipJar;
 	private Label label1;
 }

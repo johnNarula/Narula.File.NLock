@@ -118,19 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="thumbsDownIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\thumbsDownIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NLock-Lock_nobg_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock-Lock_nobg.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="reloadIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\reloadIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NLock-Lock_nobg_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock-Lock_nobg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="thumbsUpIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\thumbsUpIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NLock-Unlock_nobg_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock-Unlock_nobg.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="important32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\important32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NLock-Unlock_nobg_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock-Unlock_nobg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="importSecretKey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\importSecretKey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nLockTipJar_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\nLockTipJar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NLockTipMeQR_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLockTipMeQR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NLock_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="NLock_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reloadIcon_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\reloadIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thumbsDownIcon_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\thumbsDownIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thumbsUpIcon_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\thumbsUpIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

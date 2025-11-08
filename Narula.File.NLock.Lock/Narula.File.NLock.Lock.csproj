@@ -6,10 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>NLock.Lock</AssemblyName>
+    <AssemblyName>NLock.Lock.exe</AssemblyName>
     <StartupObject>Narula.File.NLock.Lock.Program</StartupObject>
 	<RootNamespace>Narula.File.NLock</RootNamespace>
-	<ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+	<ApplicationIcon>NLock-Lock_nobg.ico</ApplicationIcon>
 	<SignAssembly>False</SignAssembly>
 	<Title>Narula File Locking</Title>
 	<Authors>John Narula</Authors>
@@ -30,9 +30,9 @@
     <EmbeddedResource Remove="AboutBox.resx" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="Resources\NLock.ico" />
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="NLock-Lock_nobg.ico" />
+  </ItemGroup>
 	
   <ItemGroup>
     <ProjectReference Include="..\Narula.File.NLock.Lib.UI\Narula.File.NLock.Lib.UI.csproj" />
@@ -56,10 +56,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-	<ItemGroup>
-		<None Update="Resources\NLock.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
 </Project>

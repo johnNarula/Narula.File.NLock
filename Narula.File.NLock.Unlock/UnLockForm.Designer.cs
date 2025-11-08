@@ -284,7 +284,6 @@ partial class UnLockForm
 		// 
 		logo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		logo.BackColor = Color.Transparent;
-		logo.Image = Properties.Resources.NLock;
 		logo.Location = new Point(13, 338);
 		logo.Name = "logo";
 		logo.Size = new Size(32, 32);

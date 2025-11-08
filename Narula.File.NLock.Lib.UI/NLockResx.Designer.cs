@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Narula.File.NLock.Properties {
+namespace Narula.File.NLock.Lib.UI {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace Narula.File.NLock.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class NLockResx {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+		public NLockResx() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Narula.File.NLock.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Narula.File.NLock.Lib.UI.NLockResx", typeof(NLockResx).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Narula.File.NLock.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+		public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,13 +59,33 @@ namespace Narula.File.NLock.Properties {
                 resourceCulture = value;
             }
         }
+
+		/// <summary>
+		///   Looks up a localized resource of type System.Byte[].
+		/// </summary>
+		public static byte[] NLock_Icon {
+            get {
+                object obj = ResourceManager.GetObject("NLock_Icon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+		/// <summary>
+		///   Looks up a localized resource of type System.Byte[].
+		/// </summary>
+		public static byte[] NLock_Lock_nobg_Icon {
+            get {
+                object obj = ResourceManager.GetObject("NLock-Lock_nobg_Icon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap important32 {
+        public static System.Drawing.Bitmap NLock_Lock_nobg_PNG {
             get {
-                object obj = ResourceManager.GetObject("important32", resourceCulture);
+                object obj = ResourceManager.GetObject("NLock-Lock_nobg_PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +93,29 @@ namespace Narula.File.NLock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap importSecretKey {
+        public static System.Drawing.Bitmap NLock_PNG {
             get {
-                object obj = ResourceManager.GetObject("importSecretKey", resourceCulture);
+                object obj = ResourceManager.GetObject("NLock_PNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] NLock_Unlock_nobg_Icon {
+            get {
+                object obj = ResourceManager.GetObject("NLock-Unlock_nobg_Icon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NLock_Unlock_nobg_PNG {
+            get {
+                object obj = ResourceManager.GetObject("NLock-Unlock_nobg_PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +123,9 @@ namespace Narula.File.NLock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reloadIcon {
+        public static System.Drawing.Bitmap nLockTipJar_PNG {
             get {
-                object obj = ResourceManager.GetObject("reloadIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("nLockTipJar_PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +133,9 @@ namespace Narula.File.NLock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap thumbsDownIcon {
+        public static System.Drawing.Bitmap NLockTipMeQR_PNG {
             get {
-                object obj = ResourceManager.GetObject("thumbsDownIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("NLockTipMeQR_PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +143,29 @@ namespace Narula.File.NLock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap thumbsUpIcon {
+        public static System.Drawing.Bitmap reloadIcon_PNG {
             get {
-                object obj = ResourceManager.GetObject("thumbsUpIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("reloadIcon_PNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap thumbsDownIcon_PNG {
+            get {
+                object obj = ResourceManager.GetObject("thumbsDownIcon_PNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap thumbsUpIcon_PNG {
+            get {
+                object obj = ResourceManager.GetObject("thumbsUpIcon_PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
