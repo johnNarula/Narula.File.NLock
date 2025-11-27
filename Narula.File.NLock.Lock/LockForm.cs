@@ -9,7 +9,7 @@ public partial class LockForm : Form
 	public LockForm()
 	{
 		InitializeComponent();
-		logo.Image = NLockResx.NLock_Lock_nobg_PNG;
+		logo.Image = NLockResx.NLock_PNG;
 		
 	}
 	public LockForm(params string[] sourceFiles) : this()

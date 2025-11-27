@@ -1,13 +1,13 @@
-@echo off
-REM ** uninstall-nfile.bat ** — Remove NLock file association and context menu entries
+@ECHO OFF
+REM Remove .nlock file association and ProgID
+REG DELETE "HKCR\.nlock" /f
+REG DELETE "HKCR\NLock.nlockfile" /f
 
-REM 1. Remove .nlock extension association
-reg delete "HKCR\.nlock" /f
+REM Remove NLock entries from all-files context menu
+REG DELETE "HKCR\*\shell\NLock" /f
 
-REM 2. Remove NLockFile ProgID and all its subkeys (icon and shell commands)
-reg delete "HKCR\NLockFile" /f
+REM Remove NLock commands from CommandStore
+REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\NLock.Lock" /f
+REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\NLock.Unlock" /f
 
-REM 3. Remove NLock cascaded context menu (Lock/Unlock) from all file types
-reg delete "HKCR\AllFileSystemObjects\shell\NLock" /f
-
-echo NLock registry entries have been removed.
+ECHO NLock integration has been removed.

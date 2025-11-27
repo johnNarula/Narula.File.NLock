@@ -7,7 +7,7 @@ public partial class UnLockForm : Form
 	public UnLockForm()
 	{
 		InitializeComponent();
-		logo.Image = NLockResx.NLock_Unlock_nobg_PNG;
+		logo.Image = NLockResx.NUnlock_PNG;
 	}
 	public UnLockForm(params string[] sourceFiles) : this()
 	{

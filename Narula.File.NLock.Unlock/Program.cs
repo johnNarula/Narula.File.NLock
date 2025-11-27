@@ -1,6 +1,5 @@
 namespace Narula.File.NLock.Unlock;
 
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Narula.File.NLock.Models;

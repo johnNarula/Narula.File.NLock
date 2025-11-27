@@ -118,19 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NLock-Lock_nobg_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\NLock-Lock_nobg.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="NLock-Lock_nobg_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\NLock-Lock_nobg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NLock-Unlock_nobg_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\NLock-Unlock_nobg.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="NLock-Unlock_nobg_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\NLock-Unlock_nobg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nLockTipJar_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="NLockTipJar_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\nLockTipJar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NLockTipMeQR_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -141,6 +129,12 @@
   </data>
   <data name="NLock_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\NLock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NUnlock_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NUnlock.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="NUnlock_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NLock-Unlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="reloadIcon_PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\reloadIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

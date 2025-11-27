@@ -7,13 +7,13 @@
     <Nullable>enable</Nullable>
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <AssemblyName>NLock</AssemblyName>
-    <ApplicationIcon>NLock.ico</ApplicationIcon>
-    <Title>Narula File Lock/Unlock</Title>
+    <AssemblyName>NLock.CLI</AssemblyName>
+    <ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+    <Title>NLock File Lock &amp; Unlock</Title>
     <Authors>John Narula</Authors>
-    <Description>Narula File Lock/Unlock</Description>
-    <Copyright>(c) All Rights Reservered.</Copyright>
-    <PackageIcon>NLock.png</PackageIcon>
+    <Description>NLock File Lock &amp; Unlock</Description>
+    <Copyright>Copyright © Narula. All Rights Reservered.</Copyright>
+    <PackageIcon>Resources\NLock.png</PackageIcon>
     <PackageTags>NLock</PackageTags>
     <PackAsTool>True</PackAsTool>
     
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="NLock.ico" />
+    <Content Include="Resources\NLock.ico" />
   </ItemGroup>
 
   <ItemGroup>

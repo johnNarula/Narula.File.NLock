@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>Resources\NLock.ico</ApplicationIcon>
+		<AssemblyName>Narula.File.NLock.Lib.UI</AssemblyName>
+		<RootNamespace>Narula.File.NLock</RootNamespace>
+		<SignAssembly>False</SignAssembly>
+		<Title>NLock File Locking &amp; Unlocking</Title>
+		<Authors>John Narula</Authors>
+		<Product>NLock</Product>
+		<Description>NLock File Locking &amp; Unlocking</Description>
+		<Copyright>Copyright © Narula. All Rights Reservered.</Copyright>
+		<PackageIcon>Resources\NLock.png</PackageIcon>
+		<PackageTags>NLock</PackageTags>
+		<Configurations>Debug;Release;INSTALLER</Configurations>
 
-  <ItemGroup>
-    <Content Include="Resources\NLock.ico" />
-  </ItemGroup>
+	</PropertyGroup>
 
   <ItemGroup>
     <Compile Update="AboutBox.cs">

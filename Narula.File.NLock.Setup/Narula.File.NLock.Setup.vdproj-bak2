@@ -15,19 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1C6348333F304144AE9C8C245F487345"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_38BCA630186146399F427653A7AE5EBA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3E5D4BA27FE94F0B90A7D41D49D94916"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -39,19 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_89284D5DDB9C447DA8084C7ECABAFD3D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CCACC7EECE944A31A72901707F867B25"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D70822E19B8A40F5ABFF0C1A641BF431"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -103,38 +79,6 @@
                     {
                     "Name" = "8:.NET Desktop Runtime 9.0.10 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.9.0.x64"
-                    }
-                }
-            }
-        }
-        "INSTALLER"
-        {
-        "DisplayName" = "8:INSTALLER"
-        "IsDebugOnly" = "11:FALSE"
-        "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:INSTALLER\\Narula.File.NLock.Setup.msi"
-        "PackageFilesAs" = "3:2"
-        "PackageFileSize" = "3:-2147483648"
-        "CabType" = "3:1"
-        "Compression" = "3:3"
-        "SignOutput" = "11:FALSE"
-        "CertificateFile" = "8:"
-        "PrivateKeyFile" = "8:"
-        "TimeStampServer" = "8:"
-        "InstallerBootstrapper" = "3:2"
-            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
-            {
-            "Enabled" = "11:TRUE"
-            "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:1"
-            "Url" = "8:"
-            "ComponentsUrl" = "8:"
-                "Items"
-                {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.9.0.x86"
-                    {
-                    "Name" = "8:.NET Desktop Runtime 9.0.11 (x86)"
-                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.9.0.x86"
                     }
                 }
             }
@@ -201,26 +145,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C6348333F304144AE9C8C245F487345"
-            {
-            "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\NLock.png"
-            "TargetName" = "8:NLock.png"
-            "Tag" = "8:"
-            "Folder" = "8:_51C98161F591443598C867818A5A2B75"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38BCA630186146399F427653A7AE5EBA"
             {
             "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\NLock.png"
@@ -232,26 +156,6 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:TRUE"
             "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3E5D4BA27FE94F0B90A7D41D49D94916"
-            {
-            "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\NUnlock.ico"
-            "TargetName" = "8:NUnlock.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_51C98161F591443598C867818A5A2B75"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -281,26 +185,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89284D5DDB9C447DA8084C7ECABAFD3D"
-            {
-            "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\NLock.ico"
-            "TargetName" = "8:NLock.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_51C98161F591443598C867818A5A2B75"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CCACC7EECE944A31A72901707F867B25"
             {
             "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\Setup_Banner.bmp"
@@ -321,32 +205,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D70822E19B8A40F5ABFF0C1A641BF431"
-            {
-            "SourcePath" = "8:..\\Narula.File.NLock.Lib.UI\\Resources\\NLock-Unlock.png"
-            "TargetName" = "8:NLock-Unlock.png"
-            "Tag" = "8:"
-            "Folder" = "8:_51C98161F591443598C867818A5A2B75"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
-            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_DA1DC9F6A5D74A428FF18CDD828B280A"
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_304A36B00E1A4268AA8F74B543C625AE"
             {
-            "Name" = "8:NLock"
+            "Name" = "8:NLockFile"
             "Description" = "8:NLock File"
             "Extensions" = "8:.nlock"
             "MIME" = "8:"
@@ -358,11 +222,11 @@
                 }
                 "Verbs"
                 {
-                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_5298606B1A994CF2AD23F9BB35F6DFFF"
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_26444E5E4FDF48A3A31B4473DD2C9BA9"
                     {
-                    "Command" = "8:NLock &Unlock"
-                    "Verb" = "8:unlock"
-                    "Arguments" = "8:[TARGETDIR]NLock.Unlock.exe %1"
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
                     "Order" = "3:0"
                     }
                 }
@@ -432,7 +296,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NLock"
         "ProductCode" = "8:{387710AE-06C0-4403-B9D2-6086845FEFAF}"
-        "PackageCode" = "8:{F2EBC7D8-AF17-4CB2-85C3-B196159F29C3}"
+        "PackageCode" = "8:{2337CE82-E91D-4325-9010-951C109D157D}"
         "UpgradeCode" = "8:{13B91DA6-ED6D-42C1-9D97-6C168E47E020}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -532,7 +396,7 @@
             {
                 "Keys"
                 {
-                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A0FD1DEEA94F41F388C44C6D3664AB9E"
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_33EB9B3EFEA94EE4982B013A751FFDC4"
                     {
                     "Name" = "8:*"
                     "Condition" = "8:"
@@ -541,7 +405,7 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
-                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F3D10AC8B9D240C987865E9E85625473"
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7C6CC6A30CE047ECB343289B63739A5C"
                             {
                             "Name" = "8:shell"
                             "Condition" = "8:"
@@ -550,55 +414,159 @@
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7357300C8F484F67AD0AF93A87739548"
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_6E1313BBC72C470E8957F36379CDF71E"
                                     {
                                     "Name" = "8:NLock"
                                     "Condition" = "8:"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "AlwaysCreate" = "11:TRUE"
+                                    "DeleteAtUninstall" = "11:TRUE"
                                     "Transitive" = "11:FALSE"
                                         "Keys"
                                         {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_C2F44DF272374D47A8FF85048369ED98"
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0BF16D69F8BE4D21B258387D19C81B86"
                                             {
-                                            "Name" = "8:command"
+                                            "Name" = "8:shell"
                                             "Condition" = "8:"
                                             "AlwaysCreate" = "11:FALSE"
                                             "DeleteAtUninstall" = "11:FALSE"
                                             "Transitive" = "11:FALSE"
                                                 "Keys"
                                                 {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_07B143FC2A1A47A2AF1A256E8F1F0B7E"
+                                                    {
+                                                    "Name" = "8:Lock"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A7A346E153C94724A7D13864BBF20017"
+                                                            {
+                                                            "Name" = "8:command"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_09D4BE65354C477EA46BBE06492E577D"
+                                                                    {
+                                                                    "Name" = "8:"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:2"
+                                                                    "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe \"%*\""
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_36181156F1114A3E85A20460BB3FD82E"
+                                                            {
+                                                            "Name" = "8:Icon"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:2"
+                                                            "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe,0"
+                                                            }
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_52A95306586D418DB7C20A588C68DF5A"
+                                                            {
+                                                            "Name" = "8:MUIVerb"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:Lock"
+                                                            }
+                                                        }
+                                                    }
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_3BFB09CAA92045D791170D045EFEEA9F"
+                                                    {
+                                                    "Name" = "8:Unlock"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_B8BFF0F7BFB24D36926CF564AAE842B2"
+                                                            {
+                                                            "Name" = "8:command"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_4B307EC596B8492AB36B669B7AA7F8F2"
+                                                                    {
+                                                                    "Name" = "8:"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:2"
+                                                                    "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Unlock.exe \"%*\""
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_12BCA2E8B79D44B2BE955F95158E959B"
+                                                            {
+                                                            "Name" = "8:Icon"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:2"
+                                                            "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Unlock.exe,0"
+                                                            }
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_AE79B7F43CBC4C5899F4CB40C8AAF4A4"
+                                                            {
+                                                            "Name" = "8:MUIVerb"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:Unlock"
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 "Values"
                                                 {
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_1CD927D3FB4D4F1ABE511AE9D5ABF099"
-                                                    {
-                                                    "Name" = "8:"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "ValueTypes" = "3:2"
-                                                    "Value" = "8:[TARGETDIR]NLock.Lock.exe %1"
-                                                    }
                                                 }
                                             }
                                         }
                                         "Values"
                                         {
-                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_218FEAACA4EB4AFD8831B385140DF5A9"
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_24EE1F4361504164BF3D5E06E42A3D77"
                                             {
                                             "Name" = "8:Icon"
                                             "Condition" = "8:"
                                             "Transitive" = "11:FALSE"
                                             "ValueTypes" = "3:2"
-                                            "Value" = "8:[TARGETDIR]NLock.Lock.exe,0"
+                                            "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe,0"
                                             }
-                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_84029FF2123748808BFE83B4B56EFCC8"
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_4A5EA060FF7E4C3E82E663843031E94F"
+                                            {
+                                            "Name" = "8:SubCommands"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_EE1284CD9CD249AB8712A5D82B01481A"
                                             {
                                             "Name" = "8:MUIVerb"
                                             "Condition" = "8:"
                                             "Transitive" = "11:FALSE"
                                             "ValueTypes" = "3:1"
-                                            "Value" = "8:NLock &Lock"
+                                            "Value" = "8:NLock"
                                             }
                                         }
                                     }
@@ -610,6 +578,88 @@
                         }
                         "Values"
                         {
+                        }
+                    }
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_372A8EF9D902476488C69C694D58BF91"
+                    {
+                    "Name" = "8:NLockFile"
+                    "Condition" = "8:"
+                    "AlwaysCreate" = "11:TRUE"
+                    "DeleteAtUninstall" = "11:TRUE"
+                    "Transitive" = "11:FALSE"
+                        "Keys"
+                        {
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_77122CB0407045009655DD0590C03A38"
+                            {
+                            "Name" = "8:DefaultIcon"
+                            "Condition" = "8:"
+                            "AlwaysCreate" = "11:TRUE"
+                            "DeleteAtUninstall" = "11:TRUE"
+                            "Transitive" = "11:FALSE"
+                                "Keys"
+                                {
+                                }
+                                "Values"
+                                {
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_EF574C4292F740FF90FD04CED560614B"
+                                    {
+                                    "Name" = "8:"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:2"
+                                    "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe,0"
+                                    }
+                                }
+                            }
+                        }
+                        "Values"
+                        {
+                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_5E6FACE09D1643B98B81ED17D72AD3CE"
+                            {
+                            "Name" = "8:DefaultIcon"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "ValueTypes" = "3:2"
+                            "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe ,0"
+                            }
+                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_7CFACF53ACDB4560B2499410EF46186E"
+                            {
+                            "Name" = "8:"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "ValueTypes" = "3:1"
+                            "Value" = "8:NLock File"
+                            }
+                        }
+                    }
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_9A02C425930941C2B0EE05F83D1A06B4"
+                    {
+                    "Name" = "8:.nlock"
+                    "Condition" = "8:"
+                    "AlwaysCreate" = "11:TRUE"
+                    "DeleteAtUninstall" = "11:TRUE"
+                    "Transitive" = "11:FALSE"
+                        "Keys"
+                        {
+                        }
+                        "Values"
+                        {
+                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_13E6843761754CB7B8DFEFE0F0C5A4E4"
+                            {
+                            "Name" = "8:"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "ValueTypes" = "3:1"
+                            "Value" = "8:NLockFile"
+                            }
+                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B53B2B0E68464430A3F51483879D882F"
+                            {
+                            "Name" = "8:Icon"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "ValueTypes" = "3:2"
+                            "Value" = "8:%ProgramFiles%\\Narula\\NLock\\NLock.Lock.exe,0"
+                            }
                         }
                     }
                 }
@@ -1043,7 +1093,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E27CD30763AA4B40B5B6021D39913172"
             {
-            "SourcePath" = "8:..\\Narula.File.NLock.Lock\\obj\\Release\\net9.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Narula.File.NLock.Lock\\obj\\Debug\\net9.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51C98161F591443598C867818A5A2B75"
@@ -1071,7 +1121,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E9F69767A1404900890B90B68CA7E940"
             {
-            "SourcePath" = "8:..\\Narula.File.NLock.Unlock\\obj\\Release\\net9.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Narula.File.NLock.Unlock\\obj\\Debug\\net9.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51C98161F591443598C867818A5A2B75"
