@@ -4,3 +4,4 @@
 [assembly: InternalsVisibleTo("NLock.Lock")]
 [assembly: InternalsVisibleTo("Narula.File.NLock.Lib.UI")]
 [assembly: InternalsVisibleTo("NLock.CLI")]
+[assembly: InternalsVisibleTo("Narula.File.NLock.Test")]

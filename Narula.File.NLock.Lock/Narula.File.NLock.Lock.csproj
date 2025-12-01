@@ -19,6 +19,9 @@
 	<PackageIcon>Resources\NLock.png</PackageIcon>
 	<PackageTags>NLock</PackageTags>
 	<Configurations>Debug;Release;INSTALLER</Configurations>
+	<DelaySign>False</DelaySign>
+	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	<AssemblyOriginatorKeyFile>C:\Users\inter\OneDrive\Documents\Projects\Narula.File.NLock\Solution Items\Certificate\NLock.pfx</AssemblyOriginatorKeyFile>
 	
   </PropertyGroup>
 

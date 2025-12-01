@@ -78,7 +78,7 @@ public partial class AcceptanceOfTCControl : UserControl
 		Append("By clicking “OK”, you acknowledge, understand, and agree to the following terms and conditions governing the use of this software (“the Application”).", bodyFont);
 
 		Append("1. IRRETRIEVABLE ENCRYPTION:", headingFont, false);
-		Append(" Once a file is encrypted using this Application, it can only be decrypted using the correct password and/or secret key. "
+		Append(" Once a file is encrypted (locked) using this Application, it can only be decrypted using the correct password and secret key. "
 			 + "If you forget, misplace, or lose this information, your encrypted file(s) will be permanently inaccessible. "
 			 + "The developer and distributor of this Application assume no responsibility or liability for any data loss resulting from forgotten credentials or lost keys.", bodyFont);
 

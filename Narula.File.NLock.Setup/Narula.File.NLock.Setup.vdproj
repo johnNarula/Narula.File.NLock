@@ -413,6 +413,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_7FF19D60BA014B289E73E9C85ECD8DFE"
+                    {
+                    "Name" = "8:NLock"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_6CFE64A558C04188A92BF8B870A96163"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -432,13 +443,13 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NLock"
         "ProductCode" = "8:{387710AE-06C0-4403-B9D2-6086845FEFAF}"
-        "PackageCode" = "8:{F2EBC7D8-AF17-4CB2-85C3-B196159F29C3}"
+        "PackageCode" = "8:{36C5484F-5ADF-43D3-8901-84674D6A1112}"
         "UpgradeCode" = "8:{13B91DA6-ED6D-42C1-9D97-6C168E47E020}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:TRUE"
+        "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:Narula"
         "ARPHELPTELEPHONE" = "8:"
@@ -632,6 +643,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8DB8582FFE98429DBBF656FC272BCC3A"
+            {
+            "Name" = "8:Lock"
+            "Arguments" = "8:"
+            "Description" = "8:Lock files"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E27CD30763AA4B40B5B6021D39913172"
+            "Folder" = "8:_7FF19D60BA014B289E73E9C85ECD8DFE"
+            "WorkingFolder" = "8:_4B20DF3BF1CA43F3860B2D7BAA8B1C09"
+            "Icon" = "8:_E27CD30763AA4B40B5B6021D39913172"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EEA0917F0CE044528BE5D2044D4EB659"
+            {
+            "Name" = "8:NLock Unlock"
+            "Arguments" = "8:"
+            "Description" = "8:Unlock .nlock files"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:32512"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E9F69767A1404900890B90B68CA7E940"
+            "Folder" = "8:_7FF19D60BA014B289E73E9C85ECD8DFE"
+            "WorkingFolder" = "8:_4B20DF3BF1CA43F3860B2D7BAA8B1C09"
+            "Icon" = "8:_E9F69767A1404900890B90B68CA7E940"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
