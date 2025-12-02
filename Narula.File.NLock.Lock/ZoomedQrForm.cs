@@ -1,4 +1,6 @@
-﻿namespace Narula.File.NLock.Lock;
+﻿using Resx = Narula.File.NLock.Lib.UI.Properties;
+namespace Narula.File.NLock.Lock;
+
 public partial class ZoomedQrForm : Form
 {
 	public AuthCodeInfo _authCodeInfo = new();
@@ -19,7 +21,7 @@ public partial class ZoomedQrForm : Form
 		authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
 		if (_authCodeInfo.Validated)
 		{
-			thumbsPicture.Image = Resources.thumbsUpIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsUpIcon;
 		}
 		else
 		{
@@ -52,12 +54,12 @@ public partial class ZoomedQrForm : Form
 		_authCodeInfo.Validated = TOTPService.ValidateAuthCode(_authCodeInfo.TotpSecret, _authCodeInfo.AuthCode);
 		if (_authCodeInfo.Validated)
 		{
-			thumbsPicture.Image = Resources.thumbsUpIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsUpIcon;
 			AppConstants.FailedAttempts = 0;
 		}
 		else
 		{
-			thumbsPicture.Image = Resources.thumbsDownIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsDownIcon;
 
 			authCodeTextBox.Clear();
 			_authCodeInfo.AuthCode = string.Empty;

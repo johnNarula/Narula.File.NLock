@@ -2,6 +2,7 @@
 
 using Narula.File.NLock.Lib.UI;
 using Narula.File.NLock.Models;
+using Resx = Narula.File.NLock.Lib.UI.Properties;
 
 namespace Narula.File.NLock;
 public partial class LockForm : Form
@@ -502,12 +503,12 @@ public partial class LockForm : Form
 		_authCodeInfo.Validated = TOTPService.ValidateAuthCode(_authCodeInfo.TotpSecret, _authCodeInfo.AuthCode);
 		if (_authCodeInfo.Validated)
 		{
-			thumbsPicture.Image = Resources.thumbsUpIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsUpIcon;
 			AppConstants.FailedAttempts = 0;
 		}
 		else
 		{
-			thumbsPicture.Image = Resources.thumbsDownIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsDownIcon;
 
 			authCodeTextBox.Clear();
 			_authCodeInfo.AuthCode = string.Empty;
@@ -533,14 +534,14 @@ public partial class LockForm : Form
 
 		if (authCodeTextBox.Text == _authCodeInfo.AuthCode && _authCodeInfo.Validated)
 		{
-			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
+			thumbsPicture.Image = _authCodeInfo.Validated ? Resx.Resources.thumbsUpIcon : null;
 		}
 		else if (authCodeTextBox.Text != _authCodeInfo.AuthCode && _authCodeInfo.Validated)
 		{
 			authGeneratedAuthCodeTextBox.Text = _authCodeInfo.TotpSecret;
 			authCodeTextBox.Text = _authCodeInfo.AuthCode;
 			_authCodeInfo.Validated = true; //was reset in authCodeTextBox_TextChanged
-			thumbsPicture.Image = _authCodeInfo.Validated ? Resources.thumbsUpIcon : null;
+			thumbsPicture.Image = _authCodeInfo.Validated ? Resx.Resources.thumbsUpIcon : null;
 		}
 		else
 		{

@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Narula.File.NLock.Lib.UI;
+
+using Resx = Narula.File.NLock.Lib.UI.Properties;
 
 namespace Narula.File.NLock;
 public partial class ImportSecretKeyForm : Form
@@ -66,13 +69,13 @@ public partial class ImportSecretKeyForm : Form
 														authCodeTextBox.Text.Trim());
 		if (_validated)
 		{
-			thumbsPicture.Image = Resources.thumbsUpIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsUpIcon;
 			AppConstants.FailedAttempts = 0;
 		}
 		else
 		{
 			authCodeTextBox.Clear();
-			thumbsPicture.Image = Resources.thumbsDownIcon;
+			thumbsPicture.Image = Resx.Resources.thumbsDownIcon;
 
 			if (++AppConstants.FailedAttempts >= AppConstants.MAX_FAIL_ATTEMPTS)
 			{

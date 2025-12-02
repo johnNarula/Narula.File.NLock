@@ -1,5 +1,4 @@
 ﻿namespace Narula.File.NLock;
-
 partial class LockForm
 {
 	/// <summary>
@@ -324,7 +323,7 @@ partial class LockForm
 		thumbsPicture.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		thumbsPicture.BackColor = Color.Transparent;
 		thumbsPicture.BackgroundImageLayout = ImageLayout.None;
-		thumbsPicture.Image = Resources.thumbsUpIcon;
+		thumbsPicture.Image = (Image)resources.GetObject("thumbsPicture.Image");
 		thumbsPicture.Location = new Point(646, 305);
 		thumbsPicture.Name = "thumbsPicture";
 		thumbsPicture.Size = new Size(31, 31);
@@ -442,7 +441,7 @@ partial class LockForm
 		importantIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 		importantIcon.BackColor = Color.Transparent;
 		importantIcon.BackgroundImageLayout = ImageLayout.None;
-		importantIcon.Image = Resources.important32;
+		importantIcon.Image = Lock.Properties.Resources.important32;
 		importantIcon.Location = new Point(646, 224);
 		importantIcon.Name = "importantIcon";
 		importantIcon.Size = new Size(24, 24);
@@ -456,7 +455,7 @@ partial class LockForm
 		importSecretKeyIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 		importSecretKeyIcon.BackColor = Color.Transparent;
 		importSecretKeyIcon.BackgroundImageLayout = ImageLayout.None;
-		importSecretKeyIcon.Image = Resources.importSecretKey;
+		importSecretKeyIcon.Image = Lock.Properties.Resources.importSecretKey;
 		importSecretKeyIcon.Location = new Point(676, 224);
 		importSecretKeyIcon.Name = "importSecretKeyIcon";
 		importSecretKeyIcon.Size = new Size(24, 24);

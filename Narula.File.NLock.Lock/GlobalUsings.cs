@@ -10,4 +10,5 @@ global using Narula.File.NLock.Lock;
 global using Narula.File.NLock.Models;
 global using Narula.File.NLock.Services;
 global using Narula.File.NLock.Utilities;
-global using Narula.File.NLock.Properties;
+global using Narula.File.NLock.Lib.UI.Properties;
+global using Narula.File.NLock.Lock.Properties;

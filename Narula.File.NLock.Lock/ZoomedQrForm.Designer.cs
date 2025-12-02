@@ -124,7 +124,7 @@ partial class ZoomedQrForm
 		importantIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 		importantIcon.BackColor = Color.Transparent;
 		importantIcon.BackgroundImageLayout = ImageLayout.None;
-		importantIcon.Image = Resources.important32;
+		importantIcon.Image = Narula.File.NLock.Lock.Properties.Resources.important32;
 		importantIcon.Location = new Point(323, 345);
 		importantIcon.Name = "importantIcon";
 		importantIcon.Size = new Size(16, 16);

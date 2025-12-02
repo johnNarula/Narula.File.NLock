@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Narula.File.NLock.Properties {
+namespace Narula.File.NLock.Lock.Properties {
     using System;
     
     
