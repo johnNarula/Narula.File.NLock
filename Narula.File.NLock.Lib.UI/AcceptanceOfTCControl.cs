@@ -33,7 +33,7 @@ public partial class AcceptanceOfTCControl : UserControl
 	}
 
 	private static readonly object _lock = new();
-	private void TcContent_VScroll(object sender, EventArgs e)
+	private void TcContent_VScroll(object? sender, EventArgs e)
 	{
 		if (_viewedFully) return;
 		lock (_lock)
@@ -51,7 +51,7 @@ public partial class AcceptanceOfTCControl : UserControl
 		
 		chkAccept.Enabled = true;
 	}
-	private void ChkAccept_CheckedChanged(object sender, EventArgs e)
+	private void ChkAccept_CheckedChanged(object? sender, EventArgs e)
 	{
 		if (chkAccept.Checked)
 		{
