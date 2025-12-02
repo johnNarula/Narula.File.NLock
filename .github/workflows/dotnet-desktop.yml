@@ -22,11 +22,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build (Release)
-        run: dotnet build --no-restore --configuration Release
+      - name: Build (Debug)
+        run: dotnet build --no-restore --configuration Debug
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --configuration Debug --verbosity normal
 
       - name: Publish app
         run: dotnet publish --configuration Release --output out
