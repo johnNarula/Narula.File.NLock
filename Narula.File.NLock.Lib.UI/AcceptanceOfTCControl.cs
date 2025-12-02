@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Narula.File.NLock.Lib.UI;
 public partial class AcceptanceOfTCControl : UserControl
 {
-	public event EventHandler? TermAccepted;
+	public event EventHandler? TermAccepted; 
 	public bool _viewedFully = false;
 
 	public AcceptanceOfTCControl()
