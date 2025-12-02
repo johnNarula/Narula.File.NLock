@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-	  <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	  <TreatWarningsAsErrors>false</TreatWarningsAsErrors> 
+	  
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <ImplicitUsings>enable</ImplicitUsings>

@@ -5,6 +5,7 @@
     <IsTestProject>true</IsTestProject>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	  
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
