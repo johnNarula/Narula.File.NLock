@@ -1,38 +1,39 @@
-name: .NET Core Desktop
+name: .NET Desktop CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout source
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x' # Change if your project uses 7.0 or 6.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Build (Release)
-        run: dotnet build --no-restore --configuration Release
+    - name: Build (Release)
+      run: dotnet build --no-restore --configuration Release
 
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+    - name: Run tests (Release)
+      run: dotnet test --no-build --configuration Release --verbosity normal
 
-      - name: Publish app
-        run: dotnet publish --configuration Release --output out
+    - name: Publish artifacts
+      run: dotnet publish Narula.File.NLock/Narula.File.NLock.csproj -c Release -o ./publish
+      # Adjust path above to your actual project file
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: out
+    - name: Upload build output
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: ./publish
