@@ -101,7 +101,7 @@ namespace Narula.File.NLock.Test
             var back = SecureUtils.SecureStringToString(secure);
             Assert.Equal(s, back);
 
-            string test = "clearme";
+            string? test = "clearme";
             SecureUtils.SecureClearString(ref test);
             Assert.Null(test);
         }

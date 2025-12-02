@@ -80,7 +80,8 @@ public partial class UnLockForm : Form
 	private string GetTargetFileName(FileInfo fi)
 	{
 		var initialFilename = Path.GetFileNameWithoutExtension(fi.Name);
-		return FileUtility.GetUniqueTargetFilenameInDirectory(fi.DirectoryName, initialFilename);
+		var directoryName = fi.DirectoryName ?? string.Empty;
+		return FileUtility.GetUniqueTargetFilenameInDirectory(directoryName, initialFilename);
 	}
 	private void CleanSourceFiles()
 	{

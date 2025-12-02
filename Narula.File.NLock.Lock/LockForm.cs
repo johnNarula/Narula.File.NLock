@@ -72,7 +72,7 @@ public partial class LockForm : Form
 	}
 	private string GetTargetFileName(FileInfo fi)
 	{
-		return FileUtility.GetUniqueTargetFilenameInDirectory(fi.DirectoryName, fi.Name + AppConstants.Extension);
+		return FileUtility.GetUniqueTargetFilenameInDirectory(fi.DirectoryName ?? string.Empty, fi.Name + AppConstants.Extension);
 	}
 	private void GenerateAuthQrCode()
 	{
