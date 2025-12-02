@@ -15,7 +15,7 @@
     <Authors>John Narula</Authors>
     <Product>NLock Unlock</Product>
     <Description>NLock File Unlocking</Description>
-    <Copyright>Copyright © Narula. All Rights Reservered.</Copyright>
+    <Copyright>Copyright © Narula. All Rights Reserved.</Copyright>
     <PackageIcon>Resources\NLock-Unlock.png</PackageIcon>
     <PackageTags>NLock</PackageTags>
     <Configurations>Debug;Release;INSTALLER</Configurations>

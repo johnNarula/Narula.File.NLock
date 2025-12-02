@@ -3,8 +3,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net9.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
-		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<Nullable>enable</Nullable>		
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AssemblyName>NLock.Lock</AssemblyName>
@@ -16,7 +15,7 @@
 		<Authors>John Narula</Authors>
 		<Product>NLock Lock</Product>
 		<Description>NLock File Locking</Description>
-		<Copyright>Copyright © Narula. All Rights Reservered.</Copyright>
+		<Copyright>Copyright © Narula. All Rights Reserved.</Copyright>
 		<PackageIcon>Resources\NLock.png</PackageIcon>
 		<PackageTags>NLock</PackageTags>
 		<Configurations>Debug;Release;INSTALLER</Configurations>

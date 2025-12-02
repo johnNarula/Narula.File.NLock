@@ -41,18 +41,7 @@ public partial class AboutBox : Form
 
 	public string AssemblyProduct => "NLock";
 
-	public string AssemblyCopyright
-	{
-		get
-		{
-			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-			if (attributes.Length == 0)
-			{
-				return "";
-			}
-			return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
-		}
-	}
+	public string AssemblyCopyright => "Copyright © Narula. All Rights Reserved.";
 	#endregion
 
 }
