@@ -7,29 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lock", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Unlock", "Narula.File.NLock.Unlock\Narula.File.NLock.Unlock.csproj", "{DAE04816-9D94-4CB1-96F0-4B5FC57BD438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.CLI", "Narula.File.NLock.CLI\Narula.File.NLock.CLI.csproj", "{A7C1A28E-6B66-4AE1-BFC6-BBF85DDACA8F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib", "Narula.File.NLock.Lib\Narula.File.NLock.Lib.csproj", "{D534FF4E-CDBB-49EC-B2F6-B4DBE0926AAB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Solution Items\build-native-forms.ps1 = Solution Items\build-native-forms.ps1
-		Solution Items\build-native.bat = Solution Items\build-native.bat
-		Solution Items\build-native.ps1 = Solution Items\build-native.ps1
-		Solution Items\Directory.Build.props = Solution Items\Directory.Build.props
-		Solution Items\install-nfile.bat = Solution Items\install-nfile.bat
-		Solution Items\install-readme.md = Solution Items\install-readme.md
-		Solution Items\Nlock Registry Readme.pdf = Solution Items\Nlock Registry Readme.pdf
-		Solution Items\REVERSE_ENGINEERING_PROTECTION.md = Solution Items\REVERSE_ENGINEERING_PROTECTION.md
-		Solution Items\uninstall-nfile.bat = Solution Items\uninstall-nfile.bat
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Lib.UI", "Narula.File.NLock.Lib.UI\Narula.File.NLock.Lib.UI.csproj", "{2EDA81F9-9A4D-4715-A32F-57165E326642}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Narula.File.NLock.Setup", "Narula.File.NLock.Setup\Narula.File.NLock.Setup.vdproj", "{B1D86C95-AB68-C33D-4EAD-86C622E7D9B1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "To do", "To do", "{BBB626F9-956F-4AD8-9EAE-4FB8B37DC99B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Narula.File.NLock.Test", "Narula.File.NLock.Test\Narula.File.NLock.Test.csproj", "{72CEE174-E5EE-43AE-B559-91A436FC84F7}"
 EndProject
